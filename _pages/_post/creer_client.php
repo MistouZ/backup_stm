@@ -27,6 +27,8 @@ $maxrow = $_POST["maxrow"];
 $customer = new Customers($array);
 $customermanager = new CustomersManager($bdd);
 
+echo "je suis là";
+
 $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
 /*
 
