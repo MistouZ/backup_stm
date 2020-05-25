@@ -11,9 +11,12 @@ else
 {
     $i=0;
 }
-echo "je suis là";
+
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
+
+echo "je suis connecté";
+
 /*
 $count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee >= 2018 GROUP BY client');
 $maxrow = $count->rowCount();
