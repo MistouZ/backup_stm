@@ -37,13 +37,7 @@ class CustomersManager
      */
     public function add(Customers $customer, array $companies, $account, array $subaccount, array $taxes)
     {
-        print_r($companies);
-        print_r($account);
-        print_r($subaccount);
         try{
-            print_r($companies);
-            print_r($account);
-            print_r($subaccount);
             $q = $this->_db->prepare('INSERT INTO customers (name, physicalAddress,invoiceAddress,isActive) VALUES (:name, :physicalAddress, :invoiceAddress,:isActive)');
             $q->bindValue(':name', $customer->getName(), PDO::PARAM_STR);
             $q->bindValue(':physicalAddress', $customer->getPhysicalAddress(), PDO::PARAM_STR);
