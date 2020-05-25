@@ -50,11 +50,11 @@ class UsersManager
             $q->bindValue(':defaultCompany', $user->getDefaultCompany(), PDO::PARAM_INT );
             $q->bindValue(':isSeller', $user->getIsSeller(), PDO::PARAM_INT);
             $q->bindValue(':isActive', $user->getIsActive(), PDO::PARAM_INT);
-
+    
             $q->execute();
-
-
-
+    
+    
+    
             for ($i=0;$i<count($companies);$i++)
             {
                 $q2 = $this->_db->prepare('INSERT INTO link_company_users (users_username, company_idcompany) VALUES (:username, :id_company)');
@@ -78,9 +78,9 @@ class UsersManager
         try{
             $q = $this->_db->prepare('UPDATE users SET isActive = \'0\' WHERE username = :username');
             $q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
-
+    
             $q->execute();
-            return "ok";
+        return "ok";
         }
         catch(Exception $e){
             return null;
@@ -135,6 +135,7 @@ class UsersManager
             if(isset($_COOKIE['prenom'])){ setcookie('prenom', false, time() - 365*24*3600, '/'); }
             if(isset($_COOKIE['username'])){ setcookie('username', false, time() - 365*24*3600, '/'); }
             if(isset($_COOKIE['company'])){ setcookie('company', false, time() - 365*24*3600, '/'); }
+            if(isset($_COOKIE['credential'])){ setcookie('credential', false, time() - 365*24*3600, '/'); }
             setcookie('connected', "false", time() + 365*24*3600, '/');
         }
         else
@@ -145,6 +146,7 @@ class UsersManager
                 setcookie('nom', $user->getName(), time() + 365*24*3600, '/');
                 setcookie('prenom', $user->getFirstName(), time() + 365*24*3600, '/');
                 setcookie('username', $user->getUsername(), time() + 365*24*3600, '/');
+                setcookie('credential', $user->getCredential(), time() + 365*24*3600, '/');
                 if(isset($_COOKIE['connected'])){ unset($_COOKIE['connected']); }
                 setcookie('connected', "true", time() + 365*24*3600, '/');
             }
@@ -156,7 +158,8 @@ class UsersManager
                 if(isset($_COOKIE['prenom'])){ setcookie('prenom', false, time() - 365*24*3600, '/'); }
                 if(isset($_COOKIE['username'])){ setcookie('username', false, time() - 365*24*3600, '/'); }
                 if(isset($_COOKIE['company'])){ setcookie('company', false, time() - 365*24*3600, '/'); }
-                setcookie('connected', "false", time() + 365*24*3600, '/');
+                if(isset($_COOKIE['credential'])){ setcookie('credential', false, time() - 365*24*3600, '/'); }
+                setcookie('connected', "false", time() + 365*24*3600, '/'); 
             }
         }
 
@@ -169,47 +172,87 @@ class UsersManager
      */
     public function getList()
     {
-        $users = [];
+        try{
+            $users = [];
 
-        $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE u.isActive='1' AND c.isActive='1' GROUP BY u.username");
-        while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-        {
-            $users[] = new Users($donnees);
+            $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE u.isActive='1' AND c.isActive='1' GROUP BY u.username");
+            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
+            {
+                $users[] = new Users($donnees);
+            }
+
+            return $users;
+        }
+        catch(Exception $e){
+            return null;
         }
 
-        return $users;
     }/**
  * Get all the users in the BDD
  * @return array
  */
     public function getAllUsers()
     {
-        $users = [];
+        try{
+            $users = [];
 
-        $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE c.isActive='1' GROUP BY u.username");
-        while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-        {
-            $users[] = new Users($donnees);
+            $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE c.isActive='1' GROUP BY u.username");
+            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
+            {
+                $users[] = new Users($donnees);
+            }
+
+            return $users;
         }
-
-        return $users;
+        catch(Exception $e){
+            return null;
+        }
     }
 
     /**
-     * Get all the users in the BDD
-     * @return array
-     */
+ * Get all the users in the BDD
+ * @return array
+ */
     public function getListByCompany($idcompany)
     {
-        $idcompany = (integer) $idcompany;
-        $users = [];
-        $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE c.idcompany='$idcompany' AND u.isActive='1' AND c.isActive='1' GROUP BY u.username");
-        while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-        {
-            $users[] = new Users($donnees);
+        try{
+            $idcompany = (integer) $idcompany;
+            $users = [];
+            $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE c.idcompany='$idcompany' AND u.isActive='1' AND c.isActive='1' GROUP BY u.username");
+            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
+            {
+                $users[] = new Users($donnees);
+            }
+
+            return $users;
+        }
+        catch(Exception $e){
+            return null;
         }
 
-        return $users;
+    }
+
+    /**
+     * Get all the seller By Company
+     * @return array
+     */
+    public function getSellerByCompany($idcompany)
+    {
+        try{
+            $idcompany = (integer) $idcompany;
+            $users = [];
+            $q=$this->_db->query("SELECT u.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS companyName FROM users u INNER JOIN  link_company_users lk ON u.username =  lk.users_username INNER JOIN company c ON lk.company_idcompany = c.idcompany WHERE c.idcompany='$idcompany' AND u.isActive='1' AND c.isActive='1' AND u.isSeller='1' GROUP BY u.username");
+            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
+            {
+                $users[] = new Users($donnees);
+            }
+
+            return $users;
+        }
+        catch(Exception $e){
+            return null;
+        }
+
     }
 
     /**
@@ -244,12 +287,12 @@ class UsersManager
                 $q->bindValue(':isSeller', $user->getIsSeller(), PDO::PARAM_INT);
                 $q->bindValue(':isActive', $user->getIsActive(), PDO::PARAM_INT);
             }
-
+    
             $q->execute();
-
+            
             $delete=$this->_db->query('DELETE FROM `link_company_users` WHERE users_username ="'.$oldusername.'"');
             $delete->execute();
-
+            
             for ($i=0;$i<count($companies);$i++)
             {
                 $q2 = $this->_db->prepare('INSERT INTO link_company_users (users_username, company_idcompany) VALUES (:username, :id_company)');
@@ -257,12 +300,48 @@ class UsersManager
                 $q2->bindValue(':id_company', $companies[$i], PDO::PARAM_INT);
                 $q2->execute();
             }
+        return "ok";
+        }
+        catch(Exception $e){
+            return null;
+        }
+    }
+
+    /**
+     * Update users information
+     * @param Users $user
+     */
+    public function updatePreference(Users $user)
+    {
+        try{
+            $user->setName(strtoupper($user->getName()));
+            if(!empty($user->getPassword())){
+                $q = $this->_db->prepare("UPDATE users SET name = :name, firstname = :firstname, emailAddress = :emailAddress, password = :password, phoneNumber = :phoneNumber, defaultCompany = :defaultCompany WHERE username = :username");
+                $q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
+                $q->bindValue(':name', $user->getName(), PDO::PARAM_STR);
+                $q->bindValue(':firstname', $user->getFirstName(), PDO::PARAM_STR);
+                $q->bindValue(':emailAddress', $user->getEmailAddress(), PDO::PARAM_STR);
+                $q->bindValue(':password', $user->getPassword(), PDO::PARAM_STR );
+                $q->bindValue(':phoneNumber', $user->getPhoneNumber(), PDO::PARAM_STR );
+                $q->bindValue(':defaultCompany', $user->getDefaultCompany(), PDO::PARAM_INT );
+            }else{
+                $q = $this->_db->prepare("UPDATE users SET name = :name, firstname = :firstname, emailAddress = :emailAddress, phoneNumber = :phoneNumber, defaultCompany = :defaultCompany WHERE username = :username");
+                $q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
+                $q->bindValue(':name', $user->getName(), PDO::PARAM_STR);
+                $q->bindValue(':firstname', $user->getFirstName(), PDO::PARAM_STR);
+                $q->bindValue(':emailAddress', $user->getEmailAddress(), PDO::PARAM_STR);
+                $q->bindValue(':phoneNumber', $user->getPhoneNumber(), PDO::PARAM_STR );
+                $q->bindValue(':defaultCompany', $user->getDefaultCompany(), PDO::PARAM_INT );
+            }
+
+            $q->execute();
             return "ok";
         }
         catch(Exception $e){
             return null;
         }
     }
+
 
     /**
      * Reactivate the User
@@ -279,15 +358,6 @@ class UsersManager
         catch(Exception $e){
             return null;
         }
-    }
-
-    public function findByName($name, $firstname)
-    {
-        $name = strtoupper($name);
-        $q = $this->_db->query('SELECT * FROM users WHERE firstname="'.$firstname.'" AND name ="'.$name.'"');
-        $data = $q->fetch(PDO::FETCH_ASSOC);
-        return $user = new Users($data);
-
     }
 
 }
