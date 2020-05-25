@@ -170,6 +170,11 @@ $donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
 $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
 
+if($donnees["societe"] == "agence"){
+    $donnees["societe"] = "bitwin";
+}
+
+
 ?>
 
 <div class="row">
@@ -327,6 +332,7 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
         <!-- END VALIDATION STATES-->
     </div>
 </div>
+
 <script type="text/javascript">
     window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
