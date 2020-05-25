@@ -70,7 +70,6 @@ else {
     }
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
         $contact->setIdContact($contact2->getIdContact());
-
         if(!in_array($contact,$contactList))
         {
             $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
@@ -85,6 +84,7 @@ else {
             }
         }
         else {
+            echo "je suis là";
             if ($row < $maxrow) {
                 $row++;
                 header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
