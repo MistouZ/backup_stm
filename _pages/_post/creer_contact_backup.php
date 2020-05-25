@@ -72,6 +72,8 @@ else {
         foreach ($contactList as $contact_check) {
             if (!array_key_exists($contact_check->getIdContact(), $contact_check)) {
                 $contact_check[$contact_check->getIdContact()] = $contact->getIdContact();
+                echo $contact_check[$contact_check->getIdContact()];
+
 
                 $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
                 if (!is_null($test)) {
@@ -81,10 +83,7 @@ else {
                     } else {
                         header('Location: http://test.bitwin.nc/index.php');
                     }
-
                 }
-
-                echo "je suis ici";
             }
             else {
                 echo "je suis là";
