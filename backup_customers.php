@@ -348,4 +348,3 @@ if($donnees["societe"] == "agence"){
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
     }*/
-</script>
