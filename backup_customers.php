@@ -172,9 +172,9 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
 //echo $donnees["societe"];
 
 print_r($donnees);
-/*
-if($donnees["societe"] == "agence"){
-    $donnees["societe"] = "bitwin";
+
+if($donnees["agence"] == "O"){
+    $donnees["bitwin"] = "O";
     echo "j'ai changé le nom de la societe";
 }
 
@@ -278,7 +278,7 @@ if($donnees["societe"] == "agence"){
                             </label>
                             <?php
                             /*récupération des sous comptes du client par société */
-/*
+
                             foreach ($companymanager as $company)
                             {
                                 ?>
@@ -336,7 +336,7 @@ if($donnees["societe"] == "agence"){
 </div>
 
 <script type="text/javascript">
-  /*  window.onload=function(){
+   window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -347,4 +347,5 @@ if($donnees["societe"] == "agence"){
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }*/
+    }
+</script>
