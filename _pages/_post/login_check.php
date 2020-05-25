@@ -7,10 +7,10 @@ session_start();
 	$userManager = new UsersManager($bdd);
 
 
-if(isset($_POST['valider'])){
+//if(isset($_POST['valider'])){
 
 		$user = $userManager->connectUser($_POST['username'],$_POST['password']);
-}
+//}
 
 if($_COOKIE['connected']=="false"){
         header('Location: '.URLHOST.'connexion/false');    
@@ -21,8 +21,8 @@ if($_COOKIE['connected']=="false"){
         $company = $companymanager->getById($user->getDefaultCompany());
         
         setcookie('company', $company->getNameData() , time() + 365*24*3600, '/');
-        
-        header('Location: '.URLHOST.$company->getNameData()."/accueil");  
+
+        header('Location: '.URLHOST.$company->getNameData()."/accueil");
 }
 
 ?>

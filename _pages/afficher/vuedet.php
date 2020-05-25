@@ -39,7 +39,7 @@ switch($type){
         $buttons = '<div class="actions">
                         <a href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/modifier/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
                             <i class="fas fa-edit"></i> Modifier </a>
-                        <a href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
+                        <a target="_blank" href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
                             <i class="fas fa-print"></i> Imprimer </a>
                         <a data-toggle="modal" href="#to_proforma" class="btn btn-default btn-sm">
                             <i class="fas fa-file-alt"></i> => Proforma </a>
@@ -56,7 +56,7 @@ switch($type){
         $entete = "de la proforma";
         $enteteIcon = '<i class="fas fa-file-alt"></i>';
         $buttons = '<div class="actions">
-                        <a href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
+                        <a target="_blank" href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
                             <i class="fas fa-print"></i> Imprimer </a>
                         <a data-toggle="modal" href="#to_facture" class="btn btn-default btn-sm">
                             <i class="fas fa-file-invoice-dollar"></i> => Facture </a>
@@ -69,7 +69,7 @@ switch($type){
         $entete = "de la facture";
         $enteteIcon = '<i class="fas fa-file-invoice-dollar"></i>';
         $buttons = '<div class="actions">
-                        <a href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
+                        <a target="_blank" href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
                             <i class="fas fa-print"></i> Imprimer </a>
                         <a data-toggle="modal" href="#to_avoir" class="btn btn-default btn-sm">
                             <i class="fas fa-file-prescription"></i> => Avoir </a>
@@ -82,7 +82,7 @@ switch($type){
         $entete = "de l'avoir";
         $enteteIcon = '<i class="fas fa-file-prescription"></i>';
         $buttons = '<div class="actions">
-                        <a href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
+                        <a target="_blank" href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/imprimer/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
                             <i class="fas fa-print"></i> Imprimer </a>
                     </div>';
         break;
@@ -95,9 +95,12 @@ $descriptions = $descriptionmanager->getByQuotationNumber($quotation->getQuotati
 $contact = $contactmanager->getById($folder->getContactId());
 $user = $usermanager->get($folder->getSeller());
 $customer = $customermanager->getById($quotation->getCustomerId());
-$shatteredQuotation = $shatteredManager->getByQuotationNumberChild($quotation->getQuotationNumber());
+if($quotation->getType() == "S")
+{
+    $shatteredQuotation = $shatteredManager->getByQuotationNumberChild($quotation->getQuotationNumber());
+}
 
-$date = date('d/m/Y',strtotime(str_replace('/','-',"".$quotation->getDay().'/'.$quotation->getMonth().'/'.$quotation->getYear()."")));
+$date = date('d/m/Y',strtotime($quotation->getDate()));
 
 if(isset($_GET['cat5'])){
     $retour = $_GET['cat5'];
@@ -208,55 +211,71 @@ if(isset($_GET['cat5'])){
                     </div>
                     <div class="portlet-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th> Description </th>
-                                        <th> Prix à l'unité </th>
-                                        <th> QT. </th>
-                                        <th> Taxe </th>
-                                        <th> Remise </th>
-                                        <th> Prix total HT </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                        $montant = 0;
-                                        $totalTaxe = 0;
-                                        $montantHT = 0;
-                                        $arrayTaxesKey =  array(); 
-                                        foreach($descriptions as $description){
-                                            $montantLigne = $description->getQuantity()*$description->getPrice();
-                                            $remise = $montantLigne*($description->getDiscount()/100);
-                                            $montantLigne = $montantLigne-$remise;
-                                            $taxe = $montantLigne*$description->getTax();
-                                            $tax = $taxmanager->getByPercent($description->getTax()*100);
-                                            
-                                            //Calcul du détail des taxes pour l'affichage par tranche détaillée
-                                            if(isset($arrayTaxesKey[$description->getTax()])){
-                                                $arrayTaxesKey[$description->getTax()]["Montant"] = $arrayTaxesKey[$description->getTax()]["Montant"]+$taxe;
-                                            }else{
-                                                $arrayTaxesKey[$description->getTax()]['Taxe']=$tax->getName();
-                                                $arrayTaxesKey[$description->getTax()]['Montant']=$taxe;
-                                            }
-                                            
-                                            $totalTaxe = $totalTaxe+$taxe;
-                                            $montantHT = $montantHT+$montantLigne;
-                                            $montant = $montant+$montantLigne+$taxe;
-                                        ?>
+                            <form id="multiSelection" method="post">
+                                <table class="table table-hover table-bordered table-striped">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo $description->getDescription(); ?></td>
-                                            <td><?php echo number_format($description->getPrice(),0,","," "); ?> XPF</td>
-                                            <td><?php echo $description->getQuantity(); ?></td>
-                                            <td><?php echo $description->getTax()*100; ?> %</td>
-                                            <td><?php echo $description->getDiscount(); ?> %</td>
-                                            <td><?php echo number_format($montantLigne,0,","," "); ?> XPF</td>
+                                            <?php
+                                            if($type == "devis"){
+                                            ?>
+                                                <th style="text-align: center !important;" class="desktop"></th>
+                                            <?php
+                                            }
+                                            ?>
+                                            <th> Description </th>
+                                            <th> Prix à l'unité </th>
+                                            <th> QT. </th>
+                                            <th> Taxe </th>
+                                            <th> Remise </th>
+                                            <th> Prix total HT </th>
                                         </tr>
+                                    </thead>
+                                    <tbody>
                                         <?php
-                                        }
-                                    ?>
-                                </tbody>
-                            </table>
+                                            $montant = 0;
+                                            $totalTaxe = 0;
+                                            $montantHT = 0;
+                                            $arrayTaxesKey =  array();
+                                            foreach($descriptions as $description){
+                                                $montantLigne = $description->getQuantity()*$description->getPrice();
+                                                $remise = $montantLigne*($description->getDiscount()/100);
+                                                $montantLigne = $montantLigne-$remise;
+                                                $taxe = $montantLigne*$description->getTax();
+                                                $tax = $taxmanager->getByPercent($description->getTax()*100);
+
+                                                //Calcul du détail des taxes pour l'affichage par tranche détaillée
+                                                if(isset($arrayTaxesKey[$description->getTax()])){
+                                                    $arrayTaxesKey[$description->getTax()]["Montant"] = $arrayTaxesKey[$description->getTax()]["Montant"]+$taxe;
+                                                }else{
+                                                    $arrayTaxesKey[$description->getTax()]['Taxe']=$tax->getName();
+                                                    $arrayTaxesKey[$description->getTax()]['Montant']=$taxe;
+                                                }
+
+                                                $totalTaxe = $totalTaxe+$taxe;
+                                                $montantHT = $montantHT+$montantLigne;
+                                                $montant = $montant+$montantLigne+$taxe;
+                                            ?>
+                                            <tr>
+                                                <?php
+                                                if($type == "devis") {
+                                                    ?>
+                                                    <td><input class="selection" type="checkbox" name="selection[]" value="<?php echo $description->getIdDescription(); ?>"/></td>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <td class="col-md-7"><?php echo nl2br($description->getDescription()); ?></td>
+                                                <td class="col-md-1"><?php echo number_format($description->getPrice(),0,","," "); ?> XPF</td>
+                                                <td><?php echo $description->getQuantity(); ?></td>
+                                                <td><?php echo $description->getTax()*100; ?> %</td>
+                                                <td><?php echo $description->getDiscount(); ?> %</td>
+                                                <td class="col-md-1"><?php echo number_format($montantLigne,0,","," "); ?> XPF</td>
+                                            </tr>
+                                            <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -289,6 +308,18 @@ if(isset($_GET['cat5'])){
                     </div>
                 </div>
             </div>
+            <?php if($type =="facture" && $type2 !="valides")
+                {?>
+                    <form action="<?php echo URLHOST."_pages/_post/to_validate.php"; ?>" method="post" id="to_validate" class="form-horizontal form-row-seperated">
+                        <input type="hidden" id="quotationNumber" name="quotationNumber" value="<?php echo $quotation->getQuotationNumber(); ?>">
+                        <div class="modal-footer">
+                            <button type="button" class="btn grey-salsa btn-outline" data-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn green" name="valider">
+                                <i class="fa fa-check"></i> Valider</button>
+                        </div>
+                    </form>
+            <?php
+                }?>
         </div>
         <div id="to_proforma" data-keyboard="false" data-backdrop="static" class="modal fade" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
@@ -330,7 +361,7 @@ if(isset($_GET['cat5'])){
                                             }
                                             else{
                                             ?>
-                                                <label class="radio-inline"><input name="shattered" id="shattered1" type="radio" value="full" class="form-control" />Non</label>
+                                                <label class="radio-inline"><input name="shattered" id="shattered1" type="radio" value="full" class="form-control" checked/>Non</label>
                                             <?php
                                             }
                                             ?>
@@ -340,7 +371,7 @@ if(isset($_GET['cat5'])){
                                     <div id="credential_error"> </div>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="partial" style="display: none">
                                 <label class="control-label col-md-3">Pourcentage à facturer
                                     <span class="required"> * </span>
                                 </label>
@@ -359,6 +390,7 @@ if(isset($_GET['cat5'])){
 
                 </div>
             </div>
+
         </div>
         <div id="to_facture" data-keyboard="false" data-backdrop="static" class="modal fade" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
@@ -513,3 +545,52 @@ if(isset($_GET['cat5'])){
         </div>
     </div>
 </div>
+<script language="JavaScript">
+    $('#select-all').click(function(){
+        if($('#select-all').attr("checked")){
+            $('#select-all').removeAttr('checked');
+            $('.selection').each(function() {
+                $(this).removeAttr('checked').uniform('refresh');
+            });
+            $.uniform.update();
+        }else{
+            $('#select-all').attr('checked','checked');
+            $('.selection').each(function() {
+                $(this).prop('checked',true);
+                $(this).parent('span').addClass('checked');
+            });
+        }
+    });
+       $('#multiSelection :checkbox').change(function() {
+        //$.uniform.update();
+        var nb = $('#multiSelection :checkbox:checked').length;
+        var nbTotal = $('#multiSelection :checkbox').length;
+        if (nb>0) {
+            if(nb==1){
+                if($('#select-all').attr("checked")){
+                    $('#select-all').removeAttr('checked').uniform('refresh');
+                }else{
+                    $("#actions").css("display","");
+                    $("#actions").css("display","inline");
+                }
+            }
+        } else {
+            $("#actions").css("display","");
+            $("#actions").css("display","none");
+            $('#select-all').removeAttr('checked');
+        }
+    });
+
+    $(document).ready(function(){
+        $("input[name$='shattered']").click(function() {
+            var test = $(this).val();
+            if(test == "full"){
+                $("#partial").hide();
+            }
+            else{
+                $("#partial").show();
+            }
+        });
+    });
+
+</script>

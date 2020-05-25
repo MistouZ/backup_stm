@@ -16,7 +16,6 @@ $companymanager = new CompaniesManager($bdd);
 $companies = $companymanager->getList();
 
 ?>
-<html>
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -55,7 +54,7 @@ $companies = $companymanager->getList();
                     <div class="alert alert-success">
                         <button class="close" data-close="alert"></button> L'utilisateur a bien été réactivé !</div>
                 <?php } ?>
-                <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_3" cellspacing="0" width="100%">
+                <table class="table table-striped table-bordered table-hover dt-responsive sample_3" width="100%" id="sample_3" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th class="all">Login</th>
@@ -141,4 +140,3 @@ $companies = $companymanager->getList();
         <!-- END EXAMPLE TABLE PORTLET-->
     </div>
 </div>
-</html>
