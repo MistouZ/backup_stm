@@ -50,7 +50,7 @@ else
     $prenom = $contact_nom[0];
     $nom = $contact_nom["1"]." ".$contact_nom["2"];
 }
-
+/*
 $new2old = array(
     'á' => 'Ã¡',
 
