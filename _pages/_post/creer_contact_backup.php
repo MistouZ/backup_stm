@@ -70,7 +70,8 @@ else {
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
         $contact->setIdContact($contact2->getIdContact());
         foreach ($contactList as $contact_check) {
-            echo "je passe ici";
+
+            echo $contact_check->getIdContact();
             if (!array_key_exists($contact_check->getIdContact(), $contact_check)) {
                 $contact_check[$contact_check->getIdContact()] = $contact->getIdContact();
                 echo $contact_check[$contact_check->getIdContact()];
