@@ -1,40 +1,38 @@
 <?php
 include("../../_cfg/cfg.php");
 
-	$name=$_POST['name'];
-	$physical_address=$_POST['physical_address'];
+$name=$_POST['name'];
+$physical_address=$_POST['physical_address'];
+if($_POST["invoice_address"] == NULL)
+{
+    $invoice_address=$_POST['physical_address'];
+}
+else{
+    $invoice_address=$_POST['invoice_address'];
+}
+if(isset($_POST["is_supplier"]))
+{
+    $supplier = 1;
+}
+else{
+    $supplier = 0;
+}
 
-    if($_POST["invoice_address"] == NULL)
-    {
-        $invoice_address=$_POST['physical_address'];
-    }
-    else{
-      $invoice_address=$_POST['invoice_address'];
-    }
+$is_active =1;
 
-    $is_active =1;
+$array = array(
+    'name' => $name,
+    'physicalAddress' => $physical_address,
+    'invoiceAddress' => $invoice_address,
+    'isActive' => $is_active
+);
 
-    $array = array(
-        'name' => $name,
-        'physicalAddress' => $physical_address,
-        'invoiceAddress' => $invoice_address,
-        'isActive' => $is_active
-    );
+$row = $_POST["row"];
+$maxrow = $_POST["maxrow"];
 
-    $row = $_POST["row"];
-    $maxrow = $_POST["maxrow"];
-
-    $customer = new Customers($array);
-    $customermanager = new CustomersManager($bdd);
-
-    /*print_r($customer);
-    print_r($_POST["account"]);
-    print_r($_POST["subaccount"]);
-    print_r($_POST["taxes"]);*/
-
-   $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
-    echo "je suis passé ";
-   /*print_r($test);
+$customer = new Customers($array);
+$customermanager = new CustomersManager($bdd);
+$test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
 
 
 if(!is_null($test))
