@@ -21,10 +21,10 @@ else
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
 
-$count = $bd->query('SELECT * FROM dossier WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg !="O" AND annee > 2018');
+$count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe"agence" OR societe = "itech" AND annee > 2018');
 $maxrow = $count->rowCount();
 
-$reponse = $bd->query('SELECT * FROM dossier WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg !="O" AND annee > 2018 LIMIT '.$i.',1 ');
+$reponse = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe"agence" OR societe = "itech"  AND annee > 2018 LIMIT '.$i.',1 ');
 $donnees = $reponse->fetch();
 
 print_r($donnees);
@@ -33,7 +33,6 @@ $count = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR i
 $maxrow = $count->rowCount();
 $reponse = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
-
 
 
 $array = array();
