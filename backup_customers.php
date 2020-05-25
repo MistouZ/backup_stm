@@ -175,6 +175,7 @@ print_r($donnees);
 
 if($donnees["agence"] == "O"){
     $donnees["bitwin"] = "O";
+    $donnees["sscompte_bitwin"] = $donnees["sscompte_agence"];
     echo "j'ai changé le nom de la societe";
 }
 
