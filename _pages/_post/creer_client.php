@@ -27,7 +27,9 @@ include("../../_cfg/cfg.php");
     $customer = new Customers($array);
     $customermanager = new CustomersManager($bdd);
 
-    $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
+    print_r($customer);
+
+    //$test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
     echo "je suis passé ";
    //print_r($test);
 
