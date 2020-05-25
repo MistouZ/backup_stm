@@ -37,6 +37,7 @@ class CustomersManager
      */
     public function add(Customers $customer, array $companies, $account, array $subaccount, array $taxes)
     {
+        echo "customer : ";
         print_r($customer);/*
         try{
             $q = $this->_db->prepare('INSERT INTO customers (name, physicalAddress,invoiceAddress,isActive) VALUES (:name, :physicalAddress, :invoiceAddress,:isActive)');
