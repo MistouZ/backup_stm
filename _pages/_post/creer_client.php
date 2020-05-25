@@ -37,7 +37,7 @@ include("../../_cfg/cfg.php");
 
    print_r($test);
 
-/*
+
 if(!is_null($test))
 {
     if($row < $maxrow) {
