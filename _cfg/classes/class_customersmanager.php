@@ -246,4 +246,21 @@ class CustomersManager
        }
     }
 
+    public function duplicate(Customers $customers, $company)
+    {
+        try{
+            $q = $this->_db->prepare("INSERT INTO duplicate_customers (name, customer_id, companyname,company_id2) VALUES (:name,:customer_id,:companyname, :company_id2)");
+            $q->bindValue(':name', $customers->getName(), PDO::PARAM_STR);
+            $q->bindValue(':customer_id', $customers->getIdCustomer(), PDO::PARAM_INT);
+            $q->bindValue(':companyname', $customers->getCompanyName(), PDO::PARAM_STR);
+            $q->bindValue(':company_id2', $company, PDO::PARAM_INT);
+            $q->execute();
+            return "ok";
+        }
+
+        catch(Exception $e){
+            return null;
+        }
+    }
+
 }

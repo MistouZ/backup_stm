@@ -27,7 +27,6 @@ $maxrow = $_POST["maxrow"];
 $customer = new Customers($array);
 $customermanager = new CustomersManager($bdd);
 
-echo $maxrow;
 
 $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
 
@@ -43,5 +42,11 @@ if(!is_null($test))
     else{
         header('Location: http://test.bitwin.nc/index.php');
     }
+}
+else{
+    $customer2 = $customermanager->getByName($customer->getName());
+    $customer2 = $customermanager->getByID($customer2->getIdCustomer());
+
+    $test2 = $customermanager->duplicate($customer2, $_POST["case"][0]);
 }
 ?>
