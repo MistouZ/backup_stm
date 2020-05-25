@@ -34,7 +34,7 @@ if($recup["contact"] == "" || $recup["contact"] == NULL){
 }
 else{
 
-    $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom="'.$recup["contact"].'" OR concerto="O" AND nom="'.$recup["contact"].'" OR agence="O" AND nom="'.$recup["contact"].'" OR itech="O" AND nom="'.$recup["contact"].'"');
+    $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom_contact="'.$recup["contact"].'" OR concerto="O" AND nom_contact="'.$recup["contact"].'" OR agence="O" AND nom_contact="'.$recup["contact"].'" OR itech="O" AND nom_contact="'.$recup["contact"].'"');
     $donnees = $reponse->fetch();
     print_r($donnees);
 }
