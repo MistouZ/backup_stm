@@ -30,6 +30,8 @@ $customermanager = new CustomersManager($bdd);
 echo "je suis là";
 
 $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
+
+echo "instertion passée";
 /*
 
 if(!is_null($test))
