@@ -243,7 +243,6 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
                                     foreach ($companymanager as $company){
 
                                         $path_image = parse_url(URLHOST."images/societe/".$company->getNameData(), PHP_URL_PATH);
-                                        $image = glob($_SERVER['DOCUMENT_ROOT'].$path_image.".*");
                                         ?>
                                         <label class="checkbox-inline">
                                             <?php
@@ -251,7 +250,6 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
                                             if($donnees[$company->getNameData()] =="O"){ echo "checked=\"checked\""; }
                                             echo' />';
                                             ?>
-                                            <img src="<?php echo URLHOST; ?>images/societe/<?php echo basename($image[0]); ?>" alt="<?php echo $company->getName(); ?>" class="logo-default" style="max-height: 20px;"/></a>
                                         </label>
                                         <?php
                                     } ?>
