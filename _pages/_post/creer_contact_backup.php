@@ -70,8 +70,8 @@ else {
         if(!in_array($contact2,$contactList))
         {
             $contact->setIdContact($contact2->getIdContact());
-            echo "je suis ici";
             $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
+            echo "je suis ici";
             if (!is_null($test)) {
                 if ($row < $maxrow) {
                     $row++;
