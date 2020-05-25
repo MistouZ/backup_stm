@@ -174,9 +174,6 @@ foreach( $new2old as $key => $value ) {
 
 $donnees["client"] = str_replace( $old, $new, $donnees["client"] );
 
-
-
-
 ?>
 <div class="row">
     <div class="col-md-12">
@@ -185,7 +182,7 @@ $donnees["client"] = str_replace( $old, $new, $donnees["client"] );
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-settings font-dark"></i>
-                    <span class="caption-subject font-dark sbold uppercase">Modification du contact <span style="font-style: italic; font-weight: 800;"><?php echo $donnees["nom"]; ?></span></span>
+                    <span class="caption-subject font-dark sbold uppercase">Ajout du contact <span style="font-style: italic; font-weight: 800;"><?php echo $donnees["nom"]; ?></span></span>
                 </div>
             </div>
             <div class="portlet-body form">
