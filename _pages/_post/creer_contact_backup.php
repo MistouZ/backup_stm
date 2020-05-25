@@ -68,7 +68,7 @@ else {
     }
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
         $contact->setIdContact($contact2->getIdContact());
-        if(!in_array($contact->getIdContact(),$contactList))
+        if(!in_array($contact,$contactList))
         {
             echo "je suis ici";
             print_r($contactList);
