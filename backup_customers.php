@@ -28,7 +28,7 @@ $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="co
 $recup = $req->fetch();
 
 
-$reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" AND concept="O" OR concerto="O" OR agence="O" OR itech="O"');
+$reponse = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR agence="O" OR itech="O" AND nom="'.$recup["client"].'"');
 $donnees = $reponse->fetch();
 
 $array = array();
@@ -334,7 +334,7 @@ if($donnees["agence"] == "O"){
 </div>
 
 <script type="text/javascript">
-/* window.onload=function(){
+ window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -345,5 +345,5 @@ if($donnees["agence"] == "O"){
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }*/
+    }
 </script>
