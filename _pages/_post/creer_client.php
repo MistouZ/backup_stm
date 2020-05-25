@@ -32,7 +32,7 @@ echo $maxrow;
 $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
 
 echo "instertion passée";
-
+*/
 print_r($test);
 
 if(!is_null($test))
