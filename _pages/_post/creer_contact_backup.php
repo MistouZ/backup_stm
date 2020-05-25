@@ -73,8 +73,6 @@ else {
 
             echo $contact_check->getIdContact();
             if (!array_key_exists($contact->getIdContact(), $contact_check)) {
-                $contact_check[$contact_check->getIdContact()] = $contact->getIdContact();
-
                 $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
                 if (!is_null($test)) {
                     if ($row < $maxrow) {
