@@ -33,7 +33,7 @@ include("../../_cfg/cfg.php");
     echo "je suis passé ";
    //print_r($test);
 
-/*
+
 if(!is_null($test))
 {
     if($row < $maxrow) {
@@ -44,7 +44,7 @@ if(!is_null($test))
     else{
         header('Location: http://test.bitwin.nc/index.php');
     }
-}/*
+}
 else{
     $customer2 = $customermanager->getByName($customer->getName());
     $customer2 = $customermanager->getByID($customer2->getIdCustomer());
@@ -67,5 +67,5 @@ else{
     }
 
 }
-*/
+
 ?>
