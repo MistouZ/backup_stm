@@ -39,7 +39,7 @@ $contact = new Contact($array);
 $contactmanager = new ContactManager($bdd);
 $contact2 = $contactmanager->getByName($contact->getName(),$contact->getFirstname());
 
-print_r($contact2)
+print_r($contact2);
 
 $data = array();
 $customer = new Customers($data);
