@@ -24,14 +24,13 @@ $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8',
 $count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee > 2018');
 $maxrow = $count->rowCount();
 
-$reponse = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee > 2018 LIMIT '.$i.',1 ');
-$donnees = $reponse->fetch();
+$req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee > 2018 LIMIT '.$i.',1 ');
+$recup = $req->fetch();
 
-print_r($donnees);
+echo $recup["client"];
 /*
-$count = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O"');
-$maxrow = $count->rowCount();
-$reponse = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O" LIMIT '.$i.',1');
+
+$reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
 
 
