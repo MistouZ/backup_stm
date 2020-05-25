@@ -45,7 +45,7 @@ $data = array();
 $customer = new Customers($data);
 $customermanager = new CustomersManager($bdd);
 $customer = $customermanager->getByName($_POST["customerName"]);
-/*
+
 if(is_null($customer)) {
     if ($row < $maxrow) {
         $row++;
@@ -59,7 +59,6 @@ else {
     $contactList = $contactmanager->getListAllToCustomer($customer->getIdCustomer());
     if ($contact2->getIdContact() == 0) {
         if ($row < $maxrow) {
-
             $row++;
             $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
             header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
@@ -95,24 +94,6 @@ else {
             } else {
                 header('Location: http://test.bitwin.nc/index.php');
             }
-        }
-    }
-    else {
-
-        $data2 = array();
-        $supplier = new Suppliers($data2);
-        $suppliermanager = new SuppliersManager($bdd);
-        $supplier = $suppliermanager->getByName($_POST["customerName"]);
-        $test2 = $contactmanager->addToSuppliers($contact2, $supplier->getIdSupplier());
-        if (!is_null($test2)) {
-            if ($row < $maxrow) {
-                $row++;
-                header('Location: http://test.bitwin.nc/backup_contact.php?row='.$row);
-            } else {
-                header('Location: http://test.bitwin.nc/index.php');
-            }
-        } else {
-            header('Location: http://test.bitwin.nc/index.php');
         }
     }
 }
