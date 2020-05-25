@@ -72,6 +72,7 @@ else {
             $contact->setIdContact($contact2->getIdContact());
             $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
             echo "je suis ici";
+            print_r($test);
             if (!is_null($test)) {
                 if ($row < $maxrow) {
                     $row++;
@@ -80,6 +81,14 @@ else {
                     header('Location: http://test.bitwin.nc/index.php');
                 }
 
+            }
+            else{
+                if ($row < $maxrow) {
+                    $row++;
+                    header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
+                } else {
+                    header('Location: http://test.bitwin.nc/index.php');
+                }
             }
         }
         else {
