@@ -68,11 +68,6 @@ else {
     }
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
         $contact->setIdContact($contact2->getIdContact());
-        if($contact2->getEmailAddress() != $contact->getEmailAddress() || $contact2->getPhoneNumber() != $contact->getPhoneNumber())
-        {
-            $contactmanager->duplicateContact($contact);
-            $contactList = $contactmanager->getListAllToCustomer($customer->getIdCustomer());
-        }
 
         if(!in_array($contact,$contactList))
         {
