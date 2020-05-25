@@ -245,8 +245,6 @@ if($donnees["societe"] == "agence"){
                                 <div class="checkbox-list" data-error-container="#company_error">
                                     <?php
                                     foreach ($companymanager as $company){
-
-                                        $path_image = parse_url(URLHOST."images/societe/".$company->getNameData(), PHP_URL_PATH);
                                         ?>
                                         <label class="checkbox-inline">
                                             <?php
