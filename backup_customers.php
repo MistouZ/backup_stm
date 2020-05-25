@@ -172,6 +172,7 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
 
 if($donnees["societe"] == "agence"){
     $donnees["societe"] = "bitwin";
+    echo "j'ai changé le nom de la societe";
 }
 
 
