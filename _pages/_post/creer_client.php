@@ -31,6 +31,7 @@ include("../../_cfg/cfg.php");
     $customermanager = new CustomersManager($bdd);
 
     print_r($customer);
+    print_r($customermanager);
 
     $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
     echo "je suis passé ";
