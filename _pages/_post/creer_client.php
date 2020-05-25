@@ -2,10 +2,10 @@
 include("../../_cfg/cfg.php");
     
 
-		$name=$_POST['name'];
-		$physical_address=$_POST['physical_address'];
+	$name=$_POST['name'];
+	$physical_address=$_POST['physical_address'];
 
-		print_r($_POST);
+	print_r($_POST);
     if($_POST["invoice_address"] == NULL)
     {
         $invoice_address=$_POST['physical_address'];
@@ -29,6 +29,10 @@ include("../../_cfg/cfg.php");
         'invoiceAddress' => $invoice_address,
         'isActive' => $is_active
     );
+
+    $row = $_POST["row"];
+    $maxrow = $_POST["maxrow"];
+
 
     $customer = new Customers($array);
     $customermanager = new CustomersManager($bdd);
