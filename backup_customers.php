@@ -28,12 +28,14 @@ $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="co
 $recup = $req->fetch();
 
 echo $recup["client"];
-/*
+
 
 $reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
 
+print_r($donnees);
 
+/*
 $array = array();
 $company = new Company($array);
 $companymanager = new CompaniesManager($bd);
