@@ -4,6 +4,8 @@ include("../../_cfg/cfg.php");
 
 		$name=$_POST['name'];
 		$physical_address=$_POST['physical_address'];
+
+		print_r($_POST);
     if($_POST["invoice_address"] == NULL)
     {
         $invoice_address=$_POST['physical_address'];
@@ -30,9 +32,9 @@ include("../../_cfg/cfg.php");
 
     $customer = new Customers($array);
     $customermanager = new CustomersManager($bdd);
-    $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
+  //  $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POST["subaccount"], $_POST["taxes"]);
 
-    print_r($test);
+  //  print_r($test);
 
 /*
 if(!is_null($test))
