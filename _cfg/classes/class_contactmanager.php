@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by PhpStorm.
  * User: adewynter
@@ -42,7 +42,7 @@ class ContactManager
                 $q->bindValue(':name', $contact->getName(), PDO::PARAM_STR);
                 $q->bindValue(':firstname', $contact->getFirstname(), PDO::PARAM_STR);
                 $q->bindValue(':emailAddress', $contact->getEmailAddress(), PDO::PARAM_STR );
-                $q->bindValue(':phoneNumber', $contact->getPhoneNumber(), PDO::PARAM_STR);
+                $q->bindValue(':phoneNumber', $contact->getPhoneNumber(), PDO::PARAM_INT);
                 $q->bindValue(':isActive', $contact->getisActive(), PDO::PARAM_INT);
                 $q->execute();
 
@@ -58,8 +58,6 @@ class ContactManager
             $q2->bindValue(':idcustomer', $customers, PDO::PARAM_INT);
             $q2->bindValue(':idcontact', $contact->getIdContact(), PDO::PARAM_INT);
             $q2->execute();
-
-            return "ok";
         }
         catch(Exception $e){
             return null;
@@ -80,7 +78,7 @@ class ContactManager
                 $q->bindValue(':name', $contact->getName(), PDO::PARAM_STR);
                 $q->bindValue(':firstname', $contact->getFirstname(), PDO::PARAM_STR);
                 $q->bindValue(':emailAddress', $contact->getEmailAddress(), PDO::PARAM_STR );
-                $q->bindValue(':phoneNumber', $contact->getPhoneNumber(), PDO::PARAM_STR);
+                $q->bindValue(':phoneNumber', $contact->getPhoneNumber(), PDO::PARAM_INT);
                 $q->bindValue(':isActive', $contact->getisActive(), PDO::PARAM_INT);
                 $q->execute();
             }
@@ -234,7 +232,7 @@ class ContactManager
             $q->bindValue(':name', $contact->getName(), PDO::PARAM_STR);
             $q->bindValue(':firstname', $contact->getFirstname(), PDO::PARAM_STR);
             $q->bindValue(':emailAddress', $contact->getEmailAddress(), PDO::PARAM_STR );
-            $q->bindValue(':phoneNumber', $contact->getPhoneNumber(), PDO::PARAM_STR);
+            $q->bindValue(':phoneNumber', $contact->getPhoneNumber(), PDO::PARAM_INT);
             $q->bindValue(':isActive', $contact->getisActive(), PDO::PARAM_INT);
             $q->execute();
 
@@ -304,14 +302,5 @@ class ContactManager
             $q->bindValue(':idContact', $contact->getIdContact(), PDO::PARAM_INT);
             $q->execute();
         }
-    }
-
-    public function duplicateContact(Contact $contact)
-    {
-        $delete=$this->_db->prepare('DELETE FROM `link_customers_contact` WHERE contact_idcontact = :idContact');
-        $delete->bindValue(':idContact', $contact->getIdContact(), PDO::PARAM_INT);
-        $delete->execute();
-
-        $this->update($contact);
     }
 }

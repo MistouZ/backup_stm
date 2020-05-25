@@ -1,5 +1,8 @@
 <?php
-define('URLHOST','http://test.bitwin.nc/');
+
+$host = explode('.', $_SERVER['HTTP_HOST']);
+
+define('URLHOST','http://'.$host[0].'.bitwin.nc/');
 
 include 'classes/class_db.php';
 include 'classes/class_features.php';
@@ -26,11 +29,18 @@ include 'classes/class_costmanager.php';
 include 'classes/class_shatteredquotation.php';
 include 'classes/class_shatteredquotationmanager.php';
 
+
 global $bdd;
 $bdd = new DB();
 $bdd->connexion();
 
 date_default_timezone_set('Pacific/Noumea');
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
+
+if (!isset($_COOKIE['connected']) || $_COOKIE['connected']=="false") {
+   if ($_SERVER['REQUEST_URI'] != "/connexion") {
+	   header('Location: '.URLHOST.'connexion');
+   }
+}
 
 ?>
