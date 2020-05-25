@@ -67,12 +67,10 @@ else {
         }
     }
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
-        $contact->setIdContact($contact2->getIdContact());
-        if(!in_array($contact,$contactList))
+        if(!in_array($contact2,$contactList))
         {
+            $contact->setIdContact($contact2->getIdContact());
             echo "je suis ici";
-            print_r($contactList);
-            print_r($contact);
             $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
             if (!is_null($test)) {
                 if ($row < $maxrow) {
