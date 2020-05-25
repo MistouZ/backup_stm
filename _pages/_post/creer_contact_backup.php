@@ -39,11 +39,13 @@ $contact = new Contact($array);
 $contactmanager = new ContactManager($bdd);
 $contact2 = $contactmanager->getByName($contact->getName(),$contact->getFirstname());
 
+print_r($contact2)
+
 $data = array();
 $customer = new Customers($data);
 $customermanager = new CustomersManager($bdd);
 $customer = $customermanager->getByName($_POST["customerName"]);
-
+/*
 if(is_null($customer)) {
     if ($row < $maxrow) {
         $row++;
