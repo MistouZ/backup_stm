@@ -35,7 +35,11 @@ else{
     echo $recup["contact"];
     $reponse = $bd->query('SELECT * FROM contact_old WHERE nom_contact="'.$recup["contact"].'" AND client = "'.$recup["client"].'"');
     $donnees = $reponse->fetch();
-    print_r($donnees);
+    if($donnees == null){
+        $i++;
+        header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
+    }
+    else{
 
 
     $mr2 = 'M.';
@@ -187,7 +191,7 @@ else{
     }
 
     $donnees["client"] = str_replace( $old, $new, $donnees["client"] );
-
+    }
     ?>
     <div class="row">
         <div class="col-md-12">
