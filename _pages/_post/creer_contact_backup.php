@@ -73,6 +73,7 @@ else {
         {
             echo "je suis ici";
             print_r($contactList);
+            print_r($contact);
             $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
             if (!is_null($test)) {
                 if ($row < $maxrow) {
