@@ -27,10 +27,9 @@ $recup = $req->fetch();
 
 
 if($recup["contact"] == "" || $recup["contact"] == NULL){
-   // $i++;
-    //header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
-
     echo "pas de contact";
+    $i++;
+    header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
 }
 else{
 
