@@ -32,7 +32,7 @@ if($recup["contact"] == "" || $recup["contact"] == NULL){
     header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
 }
 else{
-
+    echo $recup["contact"];
     $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom_contact="'.$recup["contact"].'" OR concerto="O" AND nom_contact="'.$recup["contact"].'" OR agence="O" AND nom_contact="'.$recup["contact"].'" OR itech="O" AND nom_contact="'.$recup["contact"].'"');
     $donnees = $reponse->fetch();
     print_r($donnees);
