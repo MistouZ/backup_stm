@@ -37,6 +37,9 @@ class CustomersManager
      */
     public function add(Customers $customer, array $companies, $account, array $subaccount, array $taxes)
     {
+        print_r($companies);
+        print_r($account);
+        print_r($subaccount);
         try{
             print_r($companies);
             print_r($account);
