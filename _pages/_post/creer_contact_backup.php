@@ -69,28 +69,28 @@ else {
     }
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
         $contact->setIdContact($contact2->getIdContact());
-        foreach ($contactList as $contact_check) {
-
-            echo $contact_check->getIdContact();
-            if (!array_key_exists($contact->getIdContact(), $contact_check)) {
-                $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
-                if (!is_null($test)) {
-                    if ($row < $maxrow) {
-                        $row++;
-                        header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
-                    } else {
-                        header('Location: http://test.bitwin.nc/index.php');
-                    }
-                }
-            }
-            else {
-                echo "je suis là";
+        if(!in_array($contact,$contactList))
+        {
+            echo "je suis ici";
+            print_r($contactList);
+            $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
+            if (!is_null($test)) {
                 if ($row < $maxrow) {
                     $row++;
                     header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
                 } else {
                     header('Location: http://test.bitwin.nc/index.php');
                 }
+
+            }
+        }
+        else {
+            echo "je suis là";
+            if ($row < $maxrow) {
+                $row++;
+                header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
+            } else {
+                header('Location: http://test.bitwin.nc/index.php');
             }
         }
     }
