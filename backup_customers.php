@@ -24,6 +24,8 @@ $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8',
 $count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee > 2018');
 $maxrow = $count->rowCount();
 
+echo $maxrow;
+
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee > 2018 LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
@@ -329,7 +331,7 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
     </div>
 </div>
 <script type="text/javascript">
-    window.onload=function(){
+  /*  window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -340,5 +342,5 @@ $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }
+    }*/
 </script>
