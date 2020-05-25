@@ -170,6 +170,8 @@ $donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
 $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
 echo $donnees["societe"];
+
+print_r($donnees);
 /*
 if($donnees["societe"] == "agence"){
     $donnees["societe"] = "bitwin";
