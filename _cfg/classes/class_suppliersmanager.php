@@ -90,11 +90,22 @@ class SuppliersManager
      */
     public function getByName($suppliername)
     {
-        $suppliername = (string) $suppliername;
-        $q = $this->_db->query('SELECT * FROM suppliers WHERE name ="'.$suppliername.'"');
-        $donnees = $q->fetch(PDO::FETCH_ASSOC);
-
-        return new Suppliers($donnees);
+        try{
+            $suppliername = (string) $suppliername;
+            $q = $this->_db->query('SELECT * FROM suppliers WHERE name ="'.$suppliername.'"');
+            $donnees = $q->fetch(PDO::FETCH_ASSOC);
+            if(!empty($donnees))
+            {
+                return new Suppliers($donnees);
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception $e){
+            echo "nope";
+            return null;
+        }
     }
 
 
@@ -226,6 +237,23 @@ class SuppliersManager
        catch(Exception $e){
         return null;
        }
+    }
+
+    public function duplicate(Suppliers $supplier, $company)
+    {
+        try{
+            $q = $this->_db->prepare("INSERT INTO duplicate_supplier (name, supplier_id, companyname,company_id2) VALUES (:name,:supplier_id,:companyname, :company_id2)");
+            $q->bindValue(':name', $supplier->getName(), PDO::PARAM_STR);
+            $q->bindValue(':supplier_id', $supplier->getIdSupplier(), PDO::PARAM_INT);
+            $q->bindValue(':companyname', $supplier->getCompanyName(), PDO::PARAM_STR);
+            $q->bindValue(':company_id2', $company, PDO::PARAM_INT);
+            $q->execute();
+            return "ok";
+        }
+
+        catch(Exception $e){
+            return null;
+        }
     }
 
 }
