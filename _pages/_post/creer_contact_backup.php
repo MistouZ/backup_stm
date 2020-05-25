@@ -39,9 +39,8 @@ $contact = new Contact($array);
 $contactmanager = new ContactManager($bdd);
 $contact2 = $contactmanager->getByName($contact->getName(),$contact->getFirstname());
 
-print_r($contact2);
-
 $data = array();
+$contact_check = new Contact($data);
 $customer = new Customers($data);
 $customermanager = new CustomersManager($bdd);
 $customer = $customermanager->getByName($_POST["customerName"]);
@@ -70,28 +69,29 @@ else {
     }
     elseif ($contact2->getName() != "Contact" && $contact2->getFirstname() != "Supprimé") {
         $contact->setIdContact($contact2->getIdContact());
-        if(!in_array($contact,$contactList))
-        {
-            echo "je suis ici";
-            print_r($contactList);
-            $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
-            if (!is_null($test)) {
+        foreach ($contactList as $contact_check) {
+            if (!array_key_exists($contact_check->getIdContact(), $contact_check)) {
+                $contact_check[$contact_check->getIdContact()] = $contact->getIdContact();
+
+                $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
+                if (!is_null($test)) {
+                    if ($row < $maxrow) {
+                        $row++;
+                        header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
+                    } else {
+                        header('Location: http://test.bitwin.nc/index.php');
+                    }
+
+                }
+            }
+            else {
+                echo "je suis là";
                 if ($row < $maxrow) {
                     $row++;
                     header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
                 } else {
                     header('Location: http://test.bitwin.nc/index.php');
                 }
-
-            }
-        }
-        else {
-            echo "je suis là";
-            if ($row < $maxrow) {
-                $row++;
-                header('Location: http://test.bitwin.nc/backup_contact.php?row=' . $row);
-            } else {
-                header('Location: http://test.bitwin.nc/index.php');
             }
         }
     }
