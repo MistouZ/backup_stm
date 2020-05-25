@@ -23,8 +23,10 @@ $maxrow = $count->rowCount();
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee >= 2018 GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
-print_r($recup);
+if($recup["contact"] == ""){
 
+    echo "pas de contact";
+}
 /*
 $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom="'.$recup["contact"].'" OR concerto="O" AND nom="'.$recup["contact"].'" OR agence="O" AND nom="'.$recup["contact"].'" OR itech="O" AND nom="'.$recup["contact"].'"');
 $donnees = $reponse->fetch();
