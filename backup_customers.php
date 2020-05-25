@@ -27,13 +27,9 @@ $maxrow = $count->rowCount();
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee > 2018 LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
-//print_r($recup);
-$request = 'SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1';
-print_r($request);
-$reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'"');
-$donnees = $reponse->fetch();
 
-print_r($donnees);
+$reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1');
+$donnees = $reponse->fetch();
 
 $array = array();
 $company = new Company($array);
