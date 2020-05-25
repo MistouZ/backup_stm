@@ -10,13 +10,6 @@ if($_POST["invoice_address"] == NULL)
 else{
     $invoice_address=$_POST['invoice_address'];
 }
-if(isset($_POST["is_supplier"]))
-{
-    $supplier = 1;
-}
-else{
-    $supplier = 0;
-}
 
 $is_active =1;
 
