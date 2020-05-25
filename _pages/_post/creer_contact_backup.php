@@ -45,7 +45,6 @@ $customer = new Customers($data);
 $customermanager = new CustomersManager($bdd);
 $customer = $customermanager->getByName($_POST["customerName"]);
 
-print_r($customer);
 
 if(is_null($customer)) {
     if ($row < $maxrow) {
