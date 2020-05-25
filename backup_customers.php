@@ -30,7 +30,7 @@ $recup = $req->fetch();
 //print_r($recup);
 $request = 'SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1';
 print_r($request);
-$reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1');
+$reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'"');
 $donnees = $reponse->fetch();
 
 print_r($donnees);
