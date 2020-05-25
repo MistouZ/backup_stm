@@ -48,7 +48,7 @@ if(!is_null($test))
     else{
         header('Location: http://test.bitwin.nc/index.php');
     }
-}
+}/*
 else{
     $customer2 = $customermanager->getByName($customer->getName());
     $customer2 = $customermanager->getByID($customer2->getIdCustomer());
@@ -71,5 +71,5 @@ else{
     }
 
 }
-
+*/
 ?>
