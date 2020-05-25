@@ -29,7 +29,7 @@ $donnees = $reponse->fetch();
 
 print_r($donnees);
 
-/*
+
 $array = array();
 $company = new Company($array);
 $companymanager = new CompaniesManager($bd);
