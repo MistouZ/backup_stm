@@ -25,7 +25,7 @@ $recup = $bd->query('SELECT client FROM dossier WHERE annee > 2018 and societe !
 $datarecup = $recup->fetch();
 
 print_r($datarecup);
-
+/*
 $count = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O"');
 $maxrow = $count->rowCount();
 $reponse = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O" LIMIT '.$i.',1');
