@@ -8,11 +8,10 @@
 
 class DB
 {
-    private $host = 'mysql:host=localhost;port=3306; dbname=exotic_stm';
-    private $username = 'exotic-adm';
-    private $password = 'N*v40i4p';
+    private $host = 'mysql:host=localhost;port=3306; dbname=stm_test_db';
+    private $username = 'testuser';
+    private $password = 'U!nx837j';
     private $bdd;
-
 
     /**
      * DB constructor.
