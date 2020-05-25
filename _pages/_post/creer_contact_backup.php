@@ -83,6 +83,8 @@ else {
                     }
 
                 }
+
+                echo "je suis ici";
             }
             else {
                 echo "je suis là";
