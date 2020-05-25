@@ -36,8 +36,9 @@ else{
 
     $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom="'.$recup["contact"].'" OR concerto="O" AND nom="'.$recup["contact"].'" OR agence="O" AND nom="'.$recup["contact"].'" OR itech="O" AND nom="'.$recup["contact"].'"');
     $donnees = $reponse->fetch();
+    print_r($donnees);
 
-
+/*
     $mr2 = 'M.';
     $mr   = 'Mr';
     $mme = 'Mme';
