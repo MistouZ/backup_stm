@@ -72,10 +72,8 @@ else {
         foreach ($contactList as $contact_check) {
 
             echo $contact_check->getIdContact();
-            if (!array_key_exists($contact_check->getIdContact(), $contact_check)) {
+            if (!array_key_exists($contact->getIdContact(), $contact_check)) {
                 $contact_check[$contact_check->getIdContact()] = $contact->getIdContact();
-                echo $contact_check[$contact_check->getIdContact()];
-
 
                 $test = $contactmanager->addToCustomers($contact, $customer->getIdCustomer());
                 if (!is_null($test)) {
