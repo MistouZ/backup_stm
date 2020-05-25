@@ -27,9 +27,6 @@ $maxrow = $count->rowCount();
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee > 2018 LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
-echo $recup["client"];
-
-
 $reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
 
