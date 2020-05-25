@@ -18,6 +18,9 @@ $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8',
 
 $count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee >= 2018 GROUP BY client');
 $maxrow = $count->rowCount();
+
+echo $maxrow;
+
 /*
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee >= 2018 GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
