@@ -6,19 +6,13 @@ include("../../_cfg/cfg.php");
 	$physical_address=$_POST['physical_address'];
 
 	print_r($_POST);
+
     if($_POST["invoice_address"] == NULL)
     {
         $invoice_address=$_POST['physical_address'];
     }
     else{
       $invoice_address=$_POST['invoice_address'];
-    }
-    if(isset($_POST["is_supplier"]))
-    {
-      $supplier = 1;
-    }
-    else{
-      $supplier = 0;
     }
 
     $is_active =1;
