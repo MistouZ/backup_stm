@@ -27,8 +27,6 @@ include("../../_cfg/cfg.php");
     $row = $_POST["row"];
     $maxrow = $_POST["maxrow"];
 
-    print_r($array);
-
     $customer = new Customers($array);
     $customermanager = new CustomersManager($bdd);
 
