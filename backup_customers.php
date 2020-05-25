@@ -20,12 +20,12 @@ else
 
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-/*
+
 $recup = $bd->query('SELECT client FROM dossier WHERE annee > 2018 and societe != "cmg" ');
 $datarecup = $recup->fetch();
 
 print_r($datarecup);
-*/
+
 $count = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O"');
 $maxrow = $count->rowCount();
 $reponse = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O" LIMIT '.$i.',1');
