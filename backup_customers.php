@@ -33,9 +33,6 @@ echo $recup["client"];
 $reponse = $bd->query('SELECT * FROM client WHERE nom="'.$recup["client"].'" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
 
-print_r($donnees);
-
-/*
 $array = array();
 $company = new Company($array);
 $companymanager = new CompaniesManager($bd);
@@ -167,7 +164,8 @@ foreach( $new2old as $key => $value ) {
 }
 
 $donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
-
+echo $donnees["nom"];
+/*
 $donnees["adphysique"] = str_replace( $old, $new, $donnees["adphysique"] );
 $donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 
