@@ -19,13 +19,13 @@ $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8',
 $count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee >= 2018 GROUP BY client');
 $maxrow = $count->rowCount();
 
-echo $maxrow;
 
-/*
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee >= 2018 GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
+print_r($recup);
 
+/*
 $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom="'.$recup["contact"].'" OR concerto="O" AND nom="'.$recup["contact"].'" OR agence="O" AND nom="'.$recup["contact"].'" OR itech="O" AND nom="'.$recup["contact"].'"');
 $donnees = $reponse->fetch();
 
