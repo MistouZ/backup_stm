@@ -24,7 +24,7 @@ $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="co
 $recup = $req->fetch();
 
 
-$reponse = $bd->query('SELECT * FROM client WHERE concept="O" OR concerto="O" OR agence="O" OR itech="O" AND nom="'.$recup["client"].'"');
+$reponse = $bd->query('SELECT * FROM client WHERE concept="O" AND nom="'.$recup["client"].'" OR concerto="O" AND nom="'.$recup["client"].'" OR agence="O" AND nom="'.$recup["client"].'" OR itech="O" AND nom="'.$recup["client"].'"');
 $donnees = $reponse->fetch();
 
 $array = array();
