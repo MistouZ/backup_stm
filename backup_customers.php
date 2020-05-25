@@ -169,9 +169,6 @@ $donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
 $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
 
-echo $donnees["adfactu"]." ".$donnees["adphysique"];
-
-/*
 ?>
 
 <div class="row">
@@ -275,7 +272,7 @@ echo $donnees["adfactu"]." ".$donnees["adphysique"];
                             </label>
                             <?php
                             /*récupération des sous comptes du client par société */
-/*
+
                             foreach ($companymanager as $company)
                             {
                                 ?>
@@ -345,4 +342,3 @@ echo $donnees["adfactu"]." ".$donnees["adphysique"];
         }
     }
 </script>
-*/
