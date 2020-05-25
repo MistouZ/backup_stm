@@ -31,6 +31,7 @@ $test = $customermanager->add($customer, $_POST["case"], $_POST["account"],$_POS
 
 echo "instertion passée";
 
+print_r($test);
 
 if(!is_null($test))
 {
@@ -43,27 +44,4 @@ if(!is_null($test))
         header('Location: http://test.bitwin.nc/index.php');
     }
 }
-else{
-    $customer2 = $customermanager->getByName($customer->getName());
-    $customer2 = $customermanager->getByID($customer2->getIdCustomer());
-
-    $test2 = $customermanager->duplicate($customer2, $_POST["case"][0]);
-
-    if(!is_null($test2))
-    {
-        if($row < $maxrow) {
-            $row++;
-            //on ajoute 1 à la limite pour lire la prochaine ligne
-            header('Location: http://test.bitwin.nc/backup_customers.php?row='.$row);
-        }
-        else{
-            header('Location: http://test.bitwin.nc/index.php');
-        }
-    }
-    else{
-        echo "echec dans l'insertion de la duplication";
-    }
-
-}
-
 ?>
