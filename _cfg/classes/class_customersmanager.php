@@ -37,9 +37,8 @@ class CustomersManager
      */
     public function add(Customers $customer, array $companies, $account, array $subaccount, array $taxes)
     {
-        echo "customer : ";
-        /*print_r($customer);
         try{
+            echo "je suis dans la fonction";/*
             $q = $this->_db->prepare('INSERT INTO customers (name, physicalAddress,invoiceAddress,isActive) VALUES (:name, :physicalAddress, :invoiceAddress,:isActive)');
             $q->bindValue(':name', $customer->getName(), PDO::PARAM_STR);
             $q->bindValue(':physicalAddress', $customer->getPhysicalAddress(), PDO::PARAM_STR);
@@ -67,12 +66,12 @@ class CustomersManager
                 $q3->bindValue(':idcustomer', $customer->getIdCustomer(), PDO::PARAM_INT);
                 $q3->bindValue(':idTax', $taxes[$j], PDO::PARAM_INT);
                 $q3->execute();
-            }
+            }*/
             return "ok";
         }
         catch(Exception $e){
             return null;
-        }*/
+        }
     }
 
     /**
