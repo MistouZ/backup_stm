@@ -12,10 +12,17 @@ else
 }
 
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-$count = $bd->query('SELECT * FROM contact_old  GROUP BY id');
+
+$count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee >= 2018 GROUP BY client');
 $maxrow = $count->rowCount();
-$reponse = $bd->query('SELECT * FROM contact_old GROUP BY id LIMIT '.$i.',1');
+
+$req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee >= 2018 GROUP BY client LIMIT '.$i.',1 ');
+$recup = $req->fetch();
+
+
+$reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom="'.$recup["contact"].'" OR concerto="O" AND nom="'.$recup["contact"].'" OR agence="O" AND nom="'.$recup["contact"].'" OR itech="O" AND nom="'.$recup["contact"].'"');
 $donnees = $reponse->fetch();
+
 
 $mr2 = 'M.';
 $mr   = 'Mr';
