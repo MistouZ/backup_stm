@@ -23,7 +23,11 @@ $maxrow = $count->rowCount();
 $req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee >= 2018 GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
-if($recup["contact"] != ""){
+if($recup["contact"] == "" || $recup["contact"] == NULL){
+    $i++;
+    header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
+}
+else{
 
     $reponse = $bd->query('SELECT * FROM contact_old WHERE concept="O" AND nom="'.$recup["contact"].'" OR concerto="O" AND nom="'.$recup["contact"].'" OR agence="O" AND nom="'.$recup["contact"].'" OR itech="O" AND nom="'.$recup["contact"].'"');
     $donnees = $reponse->fetch();
@@ -258,10 +262,6 @@ if($recup["contact"] != ""){
         </div>
     </div>
 <?php
-}
-else{
-    $i++;
-    header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
 }
     ?>
 <script type="text/javascript">
