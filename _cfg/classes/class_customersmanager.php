@@ -67,7 +67,7 @@ class CustomersManager
                 $q3->bindValue(':idTax', $taxes[$j], PDO::PARAM_INT);
                 $q3->execute();
             }*/
-            return "ok";
+           // return "ok";
         }
         catch(Exception $e){
             return null;
