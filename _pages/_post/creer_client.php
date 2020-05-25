@@ -4,8 +4,6 @@ include("../../_cfg/cfg.php");
 	$name=$_POST['name'];
 	$physical_address=$_POST['physical_address'];
 
-	print_r($_POST);
-
     if($_POST["invoice_address"] == NULL)
     {
         $invoice_address=$_POST['physical_address'];
