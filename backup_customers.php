@@ -336,7 +336,7 @@ if($donnees["agence"] == "O"){
 </div>
 
 <script type="text/javascript">
-  /* window.onload=function(){
+  window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -347,5 +347,5 @@ if($donnees["agence"] == "O"){
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }*/
+    }
 </script>
