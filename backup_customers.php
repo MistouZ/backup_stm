@@ -162,7 +162,7 @@ foreach( $new2old as $key => $value ) {
 $donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
 echo $donnees["nom"];
 
-$donnees["adphysique"] = str_replace( $old, $new, $donnees["adphysique"] );
+$donnees["adphysique"] = htmlentities($donnees["adphysique"]);
 $donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
