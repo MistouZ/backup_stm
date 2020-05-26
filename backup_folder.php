@@ -225,6 +225,7 @@ else
     $nom = $contact_nom["1"]." ".$contact_nom["2"];
 }
 
+$donnees["client"] = str_replace( $old, $new, $donnees["client"] );
 $donnees["client"] = mb_strtoupper($donnees["client"]);
 
 $contacts = $contactmanager->getByName(strtoupper($nom), $prenom);
@@ -257,6 +258,16 @@ if (empty($customer))
     echo "je suis passé par là";
     $donnees["client"] = str_replace( "\'", 'Â€™', $donnees["client"] );
     $donnees["client"] = str_replace( $old, $new, $donnees["client"] );
+    echo $donnees["client"];
+    $data = array();
+    $customer = new Customers($data);
+    $customermanager = new CustomersManager($bdd);
+    $customer = $customermanager->getByName($donnees["client"]);
+}
+if (empty($customer))
+{
+    echo "je suis passé par lou";
+    $donnees["client"] = str_replace( "é", 'É', $donnees["client"] );
     echo $donnees["client"];
     $data = array();
     $customer = new Customers($data);
