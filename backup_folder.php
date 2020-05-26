@@ -264,16 +264,7 @@ if (empty($customer))
     $customermanager = new CustomersManager($bdd);
     $customer = $customermanager->getByName($donnees["client"]);
 }
-if (empty($customer))
-{
-    echo "je suis passé par lou";
-    $donnees["client"] = str_replace( "é", 'É', $donnees["client"] );
-    echo $donnees["client"];
-    $data = array();
-    $customer = new Customers($data);
-    $customermanager = new CustomersManager($bdd);
-    $customer = $customermanager->getByName($donnees["client"]);
-}
+
 
 ?>
 <div class="row">
