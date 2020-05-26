@@ -58,12 +58,12 @@ $new2old = array(
     'ë' => 'Ã«',
     'Ë' => 'Ã‹',
     'í' => 'Ã-­­',
-    'À' => 'Ã',
+    'Í' => 'Ã',
     'ì' => 'Ã¬',
     'Ì' => 'ÃŒ',
     'î' => 'Ã®',
     'Î' => 'ÃŽ',
-    'Ï' => 'Ã¯',
+    'ï' => 'Ã¯',
     'Ï' => 'Ã',
     'ñ' => 'Ã±',
     'Ñ' => 'Ã‘',
@@ -71,7 +71,7 @@ $new2old = array(
     'Ó' => 'Ã“',
     'ò' => 'Ã²',
     'Ò' => 'Ã’',
-    'Ô' => 'Ã´',
+    'ô' => 'Ã´',
     'Ô' => 'Ã”',
     'ö' => 'Ã¶',
     'Ö' => 'Ã–',
@@ -91,8 +91,7 @@ $new2old = array(
     'ü' => 'Ã¼',
     'Ü' => 'Ãœ',
     '€' => 'â‚¬',
-    //'’' => 'â€™',
-    '’' => 'Â€™',
+    '’' => 'â€™',
     '‚' => 'â€š',
     'ƒ' => 'Æ’',
     '„' => 'â€ž',
@@ -151,7 +150,6 @@ $new2old = array(
     'â' => 'Ã¢',
     'Â' => 'Ã‚',
     'Ã' => 'Ãƒ',
-
 );
 
 foreach( $new2old as $key => $value ) {
@@ -159,14 +157,11 @@ foreach( $new2old as $key => $value ) {
     $old[] = $value;
 }
 
-//$donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
-
-$donnees["nom"] = mb_convert_encoding($donnees["nom"],"HTML-ENTITIES","UTF-8");
-//$donnees["nom"] = utf8_decode(mb_convert_encoding($donnees["nom"], "HTML-ENTITIES", 'UTF-8'));
+$donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
 echo $donnees["nom"];
 
-$donnees["adphysique"] = utf8_decode($donnees["adphysique"]);
-$donnees["adfactu"] = utf8_decode($donnees["adfactu"]);
+$donnees["adphysique"] = str_replace( $old, $new, $donnees["adphysique"] );
+$donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
 $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
@@ -335,7 +330,7 @@ if($donnees["agence"] == "O"){
 </div>
 
 <script type="text/javascript">
-  /* window.onload=function(){
+    window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -346,5 +341,5 @@ if($donnees["agence"] == "O"){
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }*/
+    }
 </script>
