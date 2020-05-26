@@ -39,8 +39,6 @@ include("../../_cfg/cfg.php");
     $user = new Users($array);
     $usermanager = new UsersManager($bdd);
     $test = $usermanager->add($user, $_POST["societe"]);
-
-    print_r($user);
     
 /*
 if(!is_null($test)){
