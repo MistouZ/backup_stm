@@ -8,7 +8,6 @@
 
 include("../../_cfg/cfg.php");
 
-if(isset($_POST['valider'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $name = $_POST['name'];
@@ -42,10 +41,24 @@ if(isset($_POST['valider'])) {
     $test = $usermanager->add($user, $_POST["societe"]);
     
 
+if(!is_null($test)){
+    if($row < $maxrow) {
+        $row++;
+        //on ajoute 1 à la limite pour lire la prochaine ligne
+        header('Location: http://test.bitwin.nc/backup_customers.php?row='.$row);
+    }
+    else{
+        header('Location: http://test.bitwin.nc/index.php');
+    }
 }
-if(is_null($test)){
-    header('Location: '.URLHOST.$_COOKIE['company']."/user/afficher/error");
-}else{
-    header('Location: '.URLHOST.$_COOKIE['company']."/user/afficher/success");
+else{
+    if($row < $maxrow) {
+        $row++;
+        //on ajoute 1 à la limite pour lire la prochaine ligne
+        header('Location: http://test.bitwin.nc/backup_customers.php?row='.$row);
+    }
+    else{
+        header('Location: http://test.bitwin.nc/index.php');
+    }
 }
 ?>
