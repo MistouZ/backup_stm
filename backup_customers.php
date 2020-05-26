@@ -163,7 +163,7 @@ $donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
 echo $donnees["nom"];
 
 $donnees["adphysique"] = utf8_decode($donnees["adphysique"]);
-$donnees["adfactu"] = utf8_decode( $old, $new, $donnees["adfactu"] );
+$donnees["adfactu"] = utf8_decode( $donnees["adfactu"] );
 
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
 $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
