@@ -36,7 +36,7 @@ class FoldersManager
      */
     public function count($companyId)
     {
-       return $this->_db->query('SELECT COUNT(*) FROM folder WHERE companyId='.$companyId.' GROUP BY companyId')->fetchColumn();
+        return $this->_db->query('SELECT COUNT(*) FROM folder WHERE companyId='.$companyId.' GROUP BY companyId')->fetchColumn();
     }
 
     /**
@@ -48,22 +48,22 @@ class FoldersManager
         $folderNumber = $this->count($folder->getCompanyId());
         $folderNumber = $folderNumber + 1;
 
-        echo $folder->getDate();
-        
         try{
-            $q = $this->_db->prepare('INSERT INTO folder (folderNumber, label, date, isActive,description,seller, companyId, customerId, contactId) VALUES (:folderNumber, :label, :date, :isActive, :description, :seller, :companyId,:customerId,:contactId)');
+            $q = $this->_db->prepare('INSERT INTO folder (folderNumber, label, year,month,day,isActive,description,seller, companyId, customerId, contactId) VALUES (:folderNumber, :label, :year, :month, :day, :isActive, :description, :seller, :companyId,:customerId,:contactId)');
             $q->bindValue(':folderNumber', $folderNumber, PDO::PARAM_STR);
             $q->bindValue(':label', $folder->getLabel(), PDO::PARAM_STR);
-            $q->bindValue(':date', $folder->getDate(), PDO::PARAM_STR );
+            $q->bindValue(':year', $folder->getYear(), PDO::PARAM_INT);
+            $q->bindValue(':month', $folder->getMonth(), PDO::PARAM_INT);
+            $q->bindValue(':day', $folder->getDay(), PDO::PARAM_INT );
             $q->bindValue(':isActive', $folder->getIsActive(), PDO::PARAM_INT);
             $q->bindValue(':description', $folder->getDescription(), PDO::PARAM_STR);
             $q->bindValue(':seller', $folder->getSeller(), PDO::PARAM_STR);
             $q->bindValue(':companyId', $folder->getCompanyId(), PDO::PARAM_INT);
             $q->bindValue(':customerId', $folder->getCustomerId(), PDO::PARAM_INT);
             $q->bindValue(':contactId', $folder->getContactId(), PDO::PARAM_INT);
-    
+
             $q->execute();
-            
+
             return "ok";
         }
         catch(Exception $e){
@@ -108,6 +108,30 @@ class FoldersManager
         }
     }
 
+    /**
+     * Find a folder by his foldername
+     * @param $foldername
+     * @return folder
+     */
+    public function getByNumFolder($numfolder, $idcompany)
+    {
+        try{
+            $numfolder = (integer) $numfolder;
+            $q = $this->_db->query('SELECT * FROM folder WHERE folderNumber ='.$numfolder.' AND companyId='.$idcompany);
+            $donnees = $q->fetch(PDO::FETCH_ASSOC);
+            if(!empty($donnees)){
+                return new Folder($donnees);
+            }
+            else{
+                return null;
+            }
+
+        }
+        catch(Exception $e){
+            return null;
+        }
+    }
+
 
     /**
      * Get all the folder in the BDD for the selected company
@@ -115,20 +139,15 @@ class FoldersManager
      */
     public function getList($companyid)
     {
-        try{
-            $folders = [];
+        $folders = [];
 
-            $q=$this->_db->query("SELECT * FROM folder WHERE companyId='$companyid' ORDER BY folderNumber DESC");
-            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-            {
-                $folders[] = new Folder($donnees);
-            }
+        $q=$this->_db->query("SELECT * FROM folder WHERE companyId='$companyid'");
+        while($donnees = $q->fetch(PDO::FETCH_ASSOC))
+        {
+            $folders[] = new Folder($donnees);
+        }
 
-            return $folders;
-        }
-        catch(Exception $e){
-            return null;
-        }
+        return $folders;
     }
 
     /**
@@ -137,95 +156,15 @@ class FoldersManager
      */
     public function getListActive($companyid)
     {
-        try{
-            $folders = [];
+        $folders = [];
 
-            $q=$this->_db->query("SELECT * FROM folder WHERE companyId=$companyid AND isActive ='1' ORDER BY folderNumber DESC ");
-            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-            {
-                $folders[] = new Folder($donnees);
-            }
-
-            return $folders;
+        $q=$this->_db->query("SELECT * FROM folder WHERE companyId=$companyid AND isActive ='1' ");
+        while($donnees = $q->fetch(PDO::FETCH_ASSOC))
+        {
+            $folders[] = new Folder($donnees);
         }
-        catch(Exception $e){
-            return null;
-        }
-    }
 
-    /**
-     * Get all the active folder in the BDD for the user
-     * @return array
-     */
-    public function getListByUser($companyid, $username)
-    {
-        try{
-            $folders = [];
-
-            $q=$this->_db->query("SELECT * FROM folder WHERE seller='".$username."' AND companyId=$companyid AND isActive ='1' ORDER BY folderNumber DESC ");
-            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-            {
-                $folders[] = new Folder($donnees);
-            }
-
-            return $folders;
-        }
-        catch(Exception $e){
-            return null;
-        }
-    }
-
-
-    /**
-     * Get all the active folder in the BDD between
-     * @return array
-     */
-    public function getListByDate($companyid, $datefrom, $dateto)
-    {
-        try{
-
-            $datefrom = date('Y-m-d',strtotime(str_replace('/','-',$datefrom)));
-            $dateto = date('Y-m-d',strtotime(str_replace('/','-',$dateto)));
-
-            $folders = [];
-
-            $q=$this->_db->query("SELECT * FROM folder WHERE date BETWEEN '".$datefrom."' AND '".$dateto."' AND companyId='".$companyid."' AND  isActive ='1' ORDER BY folderNumber ASC");
-            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-            {
-                $folders[] = new Folder($donnees);
-            }
-
-            return $folders;
-        }
-        catch(Exception $e){
-            return null;
-        }
-    }
-
-    /**
-     * Get all the active folder in the BDD between date and for a user
-     * @return array
-     */
-    public function getListByDateAndUser($companyid, $username, $datefrom, $dateto)
-    {
-        try{
-
-            $datefrom = date('Y-m-d',strtotime(str_replace('/','-',$datefrom)));
-            $dateto = date('Y-m-d',strtotime(str_replace('/','-',$dateto)));
-
-            $folders = [];
-
-            $q=$this->_db->query("SELECT * FROM folder WHERE date BETWEEN '".$datefrom."' AND '".$dateto."' AND companyId='".$companyid."' AND seller='".$username."' AND  isActive ='1' ORDER BY folderNumber ASC");
-            while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-            {
-                $folders[] = new Folder($donnees);
-            }
-
-            return $folders;
-        }
-        catch(Exception $e){
-            return null;
-        }
+        return $folders;
     }
 
     /**
@@ -235,17 +174,19 @@ class FoldersManager
     public function update(Folder $folder)
     {
         try{
-            $q = $this->_db->prepare('UPDATE folder SET label = :label, date = :date, isActive = :isActive,description = :description,seller = :seller, companyId = :companyId, customerId = :customerId, contactId = :contactId WHERE idFolder= :idFolder');
+            $q = $this->_db->prepare('UPDATE folder SET label = :label, year = :year,month = :month,day = :day,isActive = :isActive,description = :description,seller = :seller, companyId = :companyId, customerId = :customerId, contactId = :contactId WHERE idFolder= :idFolder');
             $q->bindValue(':idFolder', $folder->getIdFolder(), PDO::PARAM_INT);
             $q->bindValue(':label', $folder->getLabel(), PDO::PARAM_STR);
-            $q->bindValue(':date', $folder->getDate(), PDO::PARAM_STR);
+            $q->bindValue(':year', $folder->getYear(), PDO::PARAM_INT);
+            $q->bindValue(':month', $folder->getMonth(), PDO::PARAM_INT);
+            $q->bindValue(':day', $folder->getDay(), PDO::PARAM_INT );
             $q->bindValue(':isActive', $folder->getIsActive(), PDO::PARAM_INT);
             $q->bindValue(':description', $folder->getDescription(), PDO::PARAM_STR);
             $q->bindValue(':seller', $folder->getSeller(), PDO::PARAM_STR);
             $q->bindValue(':companyId', $folder->getCompanyId(), PDO::PARAM_INT);
             $q->bindValue(':customerId', $folder->getCustomerId(), PDO::PARAM_INT);
             $q->bindValue(':contactId', $folder->getContactId(), PDO::PARAM_INT);
-    
+
             $q->execute();
             return "ok";
         }
@@ -270,6 +211,64 @@ class FoldersManager
         catch(Exception $e){
             return null;
         }
+    }
+    /**
+     * @param Folder $folder
+     * Insertion folder in the DB
+     */
+    public function addBackup(Folder $folder)
+    {
+        try{
+            $q = $this->_db->prepare('INSERT INTO folder (folderNumber, label, year,month,day,isActive,description,seller, companyId, customerId, contactId) VALUES (:folderNumber, :label, :year, :month, :day, :isActive, :description, :seller, :companyId,:customerId,:contactId)');
+            $q->bindValue(':folderNumber', $folder->getFolderNumber(), PDO::PARAM_STR);
+            $q->bindValue(':label', $folder->getLabel(), PDO::PARAM_STR);
+            $q->bindValue(':year', $folder->getYear(), PDO::PARAM_INT);
+            $q->bindValue(':month', $folder->getMonth(), PDO::PARAM_INT);
+            $q->bindValue(':day', $folder->getDay(), PDO::PARAM_INT );
+            $q->bindValue(':isActive', $folder->getIsActive(), PDO::PARAM_INT);
+            $q->bindValue(':description', $folder->getDescription(), PDO::PARAM_STR);
+            $q->bindValue(':seller', $folder->getSeller(), PDO::PARAM_STR);
+            $q->bindValue(':companyId', $folder->getCompanyId(), PDO::PARAM_INT);
+            $q->bindValue(':customerId', $folder->getCustomerId(), PDO::PARAM_INT);
+            $q->bindValue(':contactId', $folder->getContactId(), PDO::PARAM_INT);
+
+            $q->execute();
+
+            return "ok";
+        }
+        catch(Exception $e){
+            return null;
+        }
+
+    }
+
+    /**
+     * @param Folder $folder
+     * Insertion folder in the DB
+     */
+    public function addBackupNoContact(Folder $folder)
+    {
+        try{
+            $q = $this->_db->prepare('INSERT INTO folder_nocontact (folderNumber, label, year,month,day,isActive,description,seller, companyId, customerId) VALUES (:folderNumber, :label, :year, :month, :day, :isActive, :description, :seller, :companyId,:customerId)');
+            $q->bindValue(':folderNumber', $folder->getFolderNumber(), PDO::PARAM_STR);
+            $q->bindValue(':label', $folder->getLabel(), PDO::PARAM_STR);
+            $q->bindValue(':year', $folder->getYear(), PDO::PARAM_INT);
+            $q->bindValue(':month', $folder->getMonth(), PDO::PARAM_INT);
+            $q->bindValue(':day', $folder->getDay(), PDO::PARAM_INT );
+            $q->bindValue(':isActive', $folder->getIsActive(), PDO::PARAM_INT);
+            $q->bindValue(':description', $folder->getDescription(), PDO::PARAM_STR);
+            $q->bindValue(':seller', $folder->getSeller(), PDO::PARAM_STR);
+            $q->bindValue(':companyId', $folder->getCompanyId(), PDO::PARAM_INT);
+            $q->bindValue(':customerId', $folder->getCustomerId(), PDO::PARAM_INT);
+
+            $q->execute();
+
+            return "ok";
+        }
+        catch(Exception $e){
+            return null;
+        }
+
     }
 
 }

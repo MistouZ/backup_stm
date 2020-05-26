@@ -43,11 +43,11 @@ class CustomersManager
             $q->bindValue(':physicalAddress', $customer->getPhysicalAddress(), PDO::PARAM_STR);
             $q->bindValue(':invoiceAddress', $customer->getInvoiceAddress(), PDO::PARAM_STR );
             $q->bindValue(':isActive', $customer->getIsActive(), PDO::PARAM_INT);
-    
+
             $q->execute();
-    
+
             $customer = $this->getByName($customer->getName());
-    
+
             for ($i=0;$i<count($companies);$i++)
             {
                 $q2 = $this->_db->prepare('INSERT INTO `link_company_customers` (customers_idcustomer, company_idcompany, account, subaccount) VALUES (:idcustomer, :idcompany, :account, :subaccount)');
@@ -58,7 +58,7 @@ class CustomersManager
 
                 $q2->execute();
             }
-    
+
             for ($j=0;$j<count($taxes);$j++)
             {
                 $q3 = $this->_db->prepare('INSERT INTO link_customers_taxes (customers_idcustomer, tax_idTax) VALUES (:idcustomer, :idTax)');
@@ -82,7 +82,7 @@ class CustomersManager
         try{
             $q = $this->_db->prepare('UPDATE customers SET isActive = \'0\' WHERE idcustomer = :idcustomer');
             $q->bindValue(':idcustomer', $idcustomer, PDO::PARAM_INT);
-    
+
             $q->execute();
             return "ok";
         }
@@ -98,11 +98,22 @@ class CustomersManager
      */
     public function getByName($customername)
     {
-        $customername = (string) $customername;
-        $q = $this->_db->query('SELECT * FROM customers WHERE name ="'.$customername.'"');
-        $donnees = $q->fetch(PDO::FETCH_ASSOC);
-
-        return new Customers($donnees);
+        try{
+            $customername = (string) $customername;
+            $q = $this->_db->query('SELECT * FROM customers WHERE name = "'.$customername.'"');
+            $donnees = $q->fetch(PDO::FETCH_ASSOC);
+            if(!empty($donnees))
+            {
+                return new Customers($donnees);
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception $e){
+            echo "nope";
+            return null;
+        }
     }
 
 
@@ -194,26 +205,27 @@ class CustomersManager
             $q->bindValue(':physicalAddress', $customer->getPhysicalAddress(), PDO::PARAM_STR);
             $q->bindValue(':invoiceAddress', $customer->getInvoiceAddress(), PDO::PARAM_STR );
             $q->bindValue(':isActive', $customer->getIsActive(), PDO::PARAM_INT);
-    
+
             $q->execute();
-            
+
             $delete=$this->_db->query('DELETE FROM `link_company_customers` WHERE customers_idcustomer ='.$customer->getIdCustomer());
             $delete->execute();
-    
+
             $deletetaxe=$this->_db->query('DELETE FROM `link_customers_taxes` WHERE customers_idcustomer ='.$customer->getIdCustomer());
             $deletetaxe->execute();
 
             for ($i=0;$i<count($companies);$i++)
             {
+                $subaccount_value = $subaccount[$companies[$i]];
                 $q2 = $this->_db->prepare('INSERT INTO `link_company_customers` (customers_idcustomer, company_idcompany, account, subaccount) VALUES (:idcustomer, :idcompany, :account, :subaccount)');
                 $q2->bindValue(':idcustomer', $customer->getIdCustomer(), PDO::PARAM_INT);
                 $q2->bindValue(':idcompany', $companies[$i], PDO::PARAM_INT);
                 $q2->bindValue(':account', $account, PDO::PARAM_INT);
-                $q2->bindValue(':subaccount', $subaccount[$companies[$i]], PDO::PARAM_STR );
+                $q2->bindValue(':subaccount', $subaccount_value, PDO::PARAM_STR );
 
                 $q2->execute();
             }
-    
+
             for ($j=0;$j<count($taxes);$j++)
             {
                 $q3 = $this->_db->prepare('INSERT INTO link_customers_taxes (customers_idcustomer, tax_idTax) VALUES (:idcustomer, :idTax)');
@@ -235,15 +247,15 @@ class CustomersManager
      */
     public function reactivate(Customers $customers)
     {
-       try{
-           $q = $this->_db->prepare('UPDATE customers SET isActive = \'1\' WHERE idcustomer = :idcustomer');
-           $q->bindValue(':idcustomer', $customers->getIdCustomer(),PDO::PARAM_INT);
-           $q->execute();
-           return "ok";
-       }
-       catch(Exception $e){
-        return null;
-       }
+        try{
+            $q = $this->_db->prepare('UPDATE customers SET isActive = \'1\' WHERE idcustomer = :idcustomer');
+            $q->bindValue(':idcustomer', $customers->getIdCustomer(),PDO::PARAM_INT);
+            $q->execute();
+            return "ok";
+        }
+        catch(Exception $e){
+            return null;
+        }
     }
 
     public function duplicate(Customers $customers, $company)

@@ -47,6 +47,7 @@ if($_POST["contact-select"] != 0) {
     $maxrow = $_POST["maxrow"];
 
     $folder = new Folder($array);
+    
     $foldermanager = new FoldersManager($bdd);
     $test = $foldermanager->addBackup($folder);
 

@@ -103,16 +103,16 @@ class CostManager
      */
     public function getByQuotationNumber($quotationNumber)
     {
-        $costs = array();
+        $cost = array();
         try{
             $quotationNumber = (string) $quotationNumber;
             $q = $this->_db->query("SELECT * FROM cost WHERE quotationNumber = '$quotationNumber'");
             while($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
-                $costs[] =new Cost($donnees);
+                $cost[] =new Cost($donnees);
             }
 
-            return $costs;
+            return $cost;
         }
         catch(Exception $e){
             return null;
@@ -127,47 +127,21 @@ class CostManager
      */
     public function getByFolderId($folderId)
     {
-        $costs = array();
+        $cost = array();
         try{
             $folderId = (string) $folderId;
             $q = $this->_db->query("SELECT * FROM `cost` WHERE folderId = '$folderId'");
             while($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
-                $costs[] = new Cost($donnees);
+                $cost[] = new Cost($donnees);
             }
 
-            return $costs;
+            return $cost;
         }
         catch(Exception $e){
             return null;
         }
     }
-
-
-    /**
-     * Find all Costs from Filtered Folders
-     * @param $folders
-     * @param $folder
-     * @return costs
-     */
-    public function getCostByFilteredFolder($folders, $folder)
-    {
-        $costs = array();
-        try{
-            foreach ($folders as $folder) {
-                $folderId = $folder->getIdFolder();
-                $q = $this->_db->query("SELECT * FROM `cost` WHERE folderId = '$folderId'");
-                while ($donnees = $q->fetch(PDO::FETCH_ASSOC)) {
-                    $costs[] = new Cost($donnees);
-                }
-            }
-            return $costs;
-        }
-        catch(Exception $e){
-            return null;
-        }
-    }
-
     /**
      * Find a Cost by his iD
      * @param $supplierId
@@ -175,46 +149,22 @@ class CostManager
      */
     public function getBySupplierId($supplierId)
     {
-        $costs = array();
+        $cost = array();
         try{
             $supplierId = (string) $supplierId;
             $q = $this->_db->query("SELECT * FROM `cost` WHERE supplierId = '$supplierId'");
             while($donnees = $q->fetch(PDO::FETCH_ASSOC))
             {
-                $costs[] = new Cost($donnees);
+                $cost[] = new Cost($donnees);
             }
 
-            return $costs;
+            return $cost;
         }
         catch(Exception $e){
             return null;
         }
     }
 
-    /**
-     * Get all the cost in the BDD from the Filtered Folders
-     * @return array
-     */
-    public function getCostByFilteredQuotation($quotations, $quotation)
-    {
-        try{
-            $costs = [];
-            foreach ($quotations as $quotation)
-            {
-                $quotationNumber = $quotation->getQuotationNumber();
-                $query = "SELECT * FROM `cost` WHERE quotationNumber='$quotationNumber'  ORDER BY quotationNumber DESC";
-                $q=$this->_db->query($query);
-                while($donnees = $q->fetch(PDO::FETCH_ASSOC))
-                {
-                    $costs[] = new Cost($donnees);
-                }
-            }
-            return $costs;
-        }
-        catch(Exception $e){
-            return null;
-        }
-    }
 
 
     /**
