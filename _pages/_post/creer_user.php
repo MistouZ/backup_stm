@@ -8,6 +8,9 @@
 
 include("../../_cfg/cfg.php");
 
+$row = $_POST["row"];
+$maxrow = $_POST["maxrow"];
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $name = $_POST['name'];
@@ -39,7 +42,6 @@ include("../../_cfg/cfg.php");
     $user = new Users($array);
     $usermanager = new UsersManager($bdd);
     $test = $usermanager->add($user, $_POST["societe"]);
-    
 
 if(!is_null($test)){
     if($row < $maxrow) {
