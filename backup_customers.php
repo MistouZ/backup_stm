@@ -17,14 +17,14 @@ else
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
 
-$count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" AND annee >= 2018 GROUP BY client');
+$count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" OR societe ="cmg" GROUP BY client');
 $maxrow = $count->rowCount();
 
-$req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech"  AND annee >= 2018 GROUP BY client LIMIT '.$i.',1 ');
+$req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" OR societe ="cmg" GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
 
 
-$reponse = $bd->query('SELECT * FROM client WHERE concept="O" AND nom="'.$recup["client"].'" OR concerto="O" AND nom="'.$recup["client"].'" OR agence="O" AND nom="'.$recup["client"].'" OR itech="O" AND nom="'.$recup["client"].'"');
+$reponse = $bd->query('SELECT * FROM client WHERE concept="O" AND nom="'.$recup["client"].'" OR concerto="O" AND nom="'.$recup["client"].'" OR agence="O" AND nom="'.$recup["client"].'" OR itech="O" AND nom="'.$recup["client"].'" OR cmg="O" AND nom="'.$recup["client"].'"');
 $donnees = $reponse->fetch();
 
 $array = array();
