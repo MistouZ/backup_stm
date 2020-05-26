@@ -161,7 +161,7 @@ foreach( $new2old as $key => $value ) {
 
 //$donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
 
-$donnees["nom"] = mb_convert_encoding($donnees["nom"], "HTML-ENTITIES", 'UTF-8');
+$donnees["nom"] = mb_convert_encoding($donnees["nom"], "HTML-ENTITIES", 'ISO-8859-1');
 echo $donnees["nom"];
 
 $donnees["adphysique"] = utf8_decode($donnees["adphysique"]);
