@@ -162,8 +162,8 @@ foreach( $new2old as $key => $value ) {
 $donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
 echo $donnees["nom"];
 
-/*$donnees["adphysique"] = str_replace( $old, $new, $donnees["adphysique"] );
-$donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );*/
+$donnees["adphysique"] = str_replace( $old, $new, $donnees["adphysique"] );
+$donnees["adfactu"] = str_replace( $old, $new, $donnees["adfactu"] );
 
 $donnees["adphysique"] = str_replace ("<br />"," ",nl2br($donnees["adphysique"]));
 $donnees["adfactu"] = str_replace ("<br />"," ",nl2br($donnees["adfactu"]));
@@ -332,7 +332,7 @@ if($donnees["agence"] == "O"){
 </div>
 
 <script type="text/javascript">
-    window.onload=function(){
+ /*   window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -343,5 +343,5 @@ if($donnees["agence"] == "O"){
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }
+    }*/
 </script>
