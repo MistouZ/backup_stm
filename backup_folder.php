@@ -39,6 +39,9 @@ $contactmanager = new ContactManager($bdd);
 $company = $companymanager->getByNameData($donnees["societe"]);
 echo $donnees["commercial"];
 
+if($donnees["societe"] == "agence") {
+    $donnees["societe"] = "bitwin";
+}
 
 if(!empty($donnees["commercial"]))
 {
@@ -62,7 +65,7 @@ else{
     {
         $user->setUsername("ndewynter");
     }
-    elseif ($donnees["societe"] == "agence")
+    elseif ($donnees["societe"] == "bitwin")
     {
         $user->setUsername("jgarrone");
     }
