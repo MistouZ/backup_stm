@@ -160,7 +160,7 @@ foreach( $new2old as $key => $value ) {
 }
 
 //$donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
-$donnees["nom"] = html_entity_decode($donnees["nom"], ENT_QUOTES, "UTF-8");
+$donnees["nom"] = RemoveBS($donnees["nom"]);
 //$donnees["nom"] = utf8_decode(mb_convert_encoding($donnees["nom"], "HTML-ENTITIES", 'UTF-8'));
 echo $donnees["nom"];
 
@@ -346,4 +346,16 @@ if($donnees["agence"] == "O"){
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
     }*/
+
+  function RemoveBS($Str) {
+      $StrArr = str_split($Str); $NewStr = '';
+      foreach ($StrArr as $Char) {
+          $CharNo = ord($Char);
+          if ($CharNo == 163) { $NewStr .= $Char; continue; } // keep £
+          if ($CharNo > 31 && $CharNo < 127) {
+              $NewStr .= $Char;
+          }
+      }
+      return $NewStr;
+  }
 </script>
