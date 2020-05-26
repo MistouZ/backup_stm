@@ -160,7 +160,7 @@ foreach( $new2old as $key => $value ) {
 }
 
 //$donnees["nom"] = str_replace( $old, $new, $donnees["nom"] );
-$donnees["adphysique"] = utf8_decode($donnees["nom"]);
+$donnees["adphysique"] = utf8_decode(html_entity_decode($donnees["nom"]));
 echo $donnees["nom"];
 
 $donnees["adphysique"] = utf8_decode($donnees["adphysique"]);
