@@ -360,4 +360,13 @@ class UsersManager
         }
     }
 
+    public function findByName($name, $firstname)
+    {
+        $name = strtoupper($name);
+        $q = $this->_db->query('SELECT * FROM users WHERE firstname="'.$firstname.'" AND name ="'.$name.'"');
+        $data = $q->fetch(PDO::FETCH_ASSOC);
+        return $user = new Users($data);
+
+    }
+
 }
