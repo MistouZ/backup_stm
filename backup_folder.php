@@ -12,9 +12,9 @@ else
 }
 
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-$count = $bd->query('SELECT * FROM dossier  WHERE `annee` >= 2018  AND societe !="nmcp" AND societe !="hydro"');
+$count = $bd->query('SELECT * FROM dossier  WHERE societe !="nmcp" AND societe !="hydro"');
 $maxrow = $count->rowCount();
-$reponse = $bd->query('SELECT * FROM dossier WHERE `annee` >= 2018 AND societe !="nmcp" AND societe !="hydro" LIMIT '.$i.',1');
+$reponse = $bd->query('SELECT * FROM dossier WHERE societe !="nmcp" AND societe !="hydro" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
 
 
