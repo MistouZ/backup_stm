@@ -62,9 +62,9 @@ else{
     {
         $user->setUsername("ndewynter");
     }
-    elseif ($donnees["societe"] == "bitwin")
+    elseif ($donnees["societe"] == "agence")
     {
-        $user->setUsername("orodrigue");
+        $user->setUsername("jgarrone");
     }
 
 }
