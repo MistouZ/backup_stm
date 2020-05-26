@@ -39,7 +39,6 @@ class UsersManager
     {
         try{
             $user->setName(strtoupper($user->getName()));
-            print_r($user);
             $q = $this->_db->prepare('INSERT INTO users (username, name, firstname,emailAddress,password,phoneNumber,credential,defaultCompany,isSeller, isActive) VALUES (:username, :name, :firstname, :emailAddress, :password, :phoneNumber, :credential, :defaultCompany, :isSeller, :isActive)');
             $q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
             $q->bindValue(':name', $user->getName(), PDO::PARAM_STR);
@@ -54,9 +53,7 @@ class UsersManager
     
             $q->execute();
 
-            echo "ok";
-    
-    
+
             for ($i=0;$i<count($companies);$i++)
             {
                 $q2 = $this->_db->prepare('INSERT INTO link_company_users (users_username, company_idcompany) VALUES (:username, :id_company)');
