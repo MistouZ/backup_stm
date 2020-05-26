@@ -53,7 +53,8 @@ class UsersManager
             $q->bindValue(':isActive', $user->getIsActive(), PDO::PARAM_INT);
     
             $q->execute();
-    
+
+            echo "ok";
     
     
             for ($i=0;$i<count($companies);$i++)
