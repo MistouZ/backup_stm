@@ -40,7 +40,7 @@ include("../../_cfg/cfg.php");
     $usermanager = new UsersManager($bdd);
     $test = $usermanager->add($user, $_POST["societe"]);
     
-/*
+
 if(!is_null($test)){
     if($row < $maxrow) {
         $row++;
