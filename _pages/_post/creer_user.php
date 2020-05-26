@@ -45,7 +45,7 @@ if(!is_null($test)){
     if($row < $maxrow) {
         $row++;
         //on ajoute 1 à la limite pour lire la prochaine ligne
-        header('Location: http://test.bitwin.nc/backup_customers.php?row='.$row);
+        header('Location: http://test.bitwin.nc/backup_users.php?row='.$row);
     }
     else{
         header('Location: http://test.bitwin.nc/index.php');
@@ -55,7 +55,7 @@ else{
     if($row < $maxrow) {
         $row++;
         //on ajoute 1 à la limite pour lire la prochaine ligne
-        header('Location: http://test.bitwin.nc/backup_customers.php?row='.$row);
+        header('Location: http://test.bitwin.nc/backup_users.php?row='.$row);
     }
     else{
         header('Location: http://test.bitwin.nc/index.php');
