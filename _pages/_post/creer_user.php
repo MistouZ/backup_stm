@@ -40,6 +40,9 @@ $maxrow = $_POST["maxrow"];
     );
 
     $user = new Users($array);
+
+    print_r($user);
+
     $usermanager = new UsersManager($bdd);
     $test = $usermanager->add($user, $_POST["societe"]);
 
