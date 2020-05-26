@@ -39,6 +39,7 @@ class UsersManager
     {
         try{
             $user->setName(strtoupper($user->getName()));
+            print_r($user);
             $q = $this->_db->prepare('INSERT INTO users (username, name, firstname,emailAddress,password,phoneNumber,credential,defaultCompany,isSeller, isActive) VALUES (:username, :name, :firstname, :emailAddress, :password, :phoneNumber, :credential, :defaultCompany, :isSeller, :isActive)');
             $q->bindValue(':username', $user->getUsername(), PDO::PARAM_STR);
             $q->bindValue(':name', $user->getName(), PDO::PARAM_STR);

@@ -40,7 +40,6 @@ include("../../_cfg/cfg.php");
     $usermanager = new UsersManager($bdd);
     $test = $usermanager->add($user, $_POST["societe"]);
 
-    print_r($usermanager);
     print_r($user);
     
 /*
