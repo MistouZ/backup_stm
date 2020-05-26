@@ -39,10 +39,6 @@ $contactmanager = new ContactManager($bdd);
 $company = $companymanager->getByNameData($donnees["societe"]);
 echo $donnees["commercial"];
 
-if($donnees["societe"] == "agence") {
-    $donnees["societe"] = "bitwin";
-}
-
 if(!empty($donnees["commercial"]))
 {
     $seller = explode(' ',$donnees["commercial"]);
