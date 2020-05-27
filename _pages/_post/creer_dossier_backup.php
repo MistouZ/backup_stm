@@ -57,9 +57,9 @@ include("../../_cfg/cfg.php");
             header('Location: http://test.bitwin.nc/backup_folder.php?row=' . $row);
         } else {
             echo "plus de data";
-            //header('Location: http://test.bitwin.nc/index.php');
+            header('Location: http://test.bitwin.nc/index.php');
         }
     } else {
         echo "problem";
-       // header('Location: http://test.bitwin.nc/index.php');
+       header('Location: http://test.bitwin.nc/index.php');
     }
