@@ -1,4 +1,4 @@
-<?php<?php
+<?php
 /**
  * Created by PhpStorm.
  * Folder: adewynter
@@ -272,7 +272,6 @@ class FoldersManager
         }
     }
 
-}
     /**
      * @param Folder $folder
      * Insertion folder in the DB
