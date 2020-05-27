@@ -328,9 +328,7 @@ if (empty($customer))
                         <input type="hidden" name="idcompany" value="<?php echo $company->getIdcompany();?>" />
                         <input type="hidden" name="folderNumber" value="<?php echo $donnees["num_doss"];?>" />
                         <input type="hidden" name="isActive" value="<?php echo $donnees["etat"];?>" />
-                        <input type="hidden" name="year" value="<?php echo $donnees["annee"];?>" />
-                        <input type="hidden" name="month" value="<?php echo $donnees["mois"];?>" />
-                        <input type="hidden" name="day" value="<?php echo $donnees["jour"];?>" />
+                        <input type="hidden" name="date" value="<?php echo $donnees["annee"]."-".$donnees["mois"]."-".$donnees["jour"];?>" />
                         <input type="hidden" value="<?php echo $i; ?>" name="row" id="row" />
                         <input type="hidden" value="<?php echo $maxrow; ?>" name="maxrow" id="maxrow" />
                     </div>
