@@ -29,7 +29,7 @@ include("../../_cfg/cfg.php");
     $array = array(
         'FolderNumber' => $FolderNumber,
         'label' => $label,
-        'day' => $day,
+        'date' => $date,
         'isActive' => $isActive,
         'description' => $description,
         'seller' => $seller,
