@@ -42,11 +42,12 @@ include("../../_cfg/cfg.php");
         'contactId' => $contactId
     );
 
+
     $row = $_POST["row"];
     $maxrow = $_POST["maxrow"];
 
     $folder = new Folder($array);
-    
+    print_r($folder);
     $foldermanager = new FoldersManager($bdd);
     $test = $foldermanager->addBackup($folder);
 
