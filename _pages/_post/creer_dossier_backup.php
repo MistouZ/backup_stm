@@ -12,9 +12,7 @@ include("../../_cfg/cfg.php");
     $label = $_POST["label"];
     $description = $_POST["description"];
     $seller = $_POST["seller-select"];
-    $year = $_POST["year"];
-    $month = $_POST["month"];
-    $day = $_POST["day"];
+    $date = $_POST["date"];
     $contactId = $_POST["contact-select"];
     $companyId = $_POST["idcompany"];
     $FolderNumber = $_POST["folderNumber"];
@@ -31,8 +29,6 @@ include("../../_cfg/cfg.php");
     $array = array(
         'FolderNumber' => $FolderNumber,
         'label' => $label,
-        'year' => $year,
-        'month' => $month,
         'day' => $day,
         'isActive' => $isActive,
         'description' => $description,
