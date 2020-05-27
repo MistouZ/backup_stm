@@ -47,6 +47,6 @@ else{
     $customer2 = $customermanager->getByName($customer->getName());
     $customer2 = $customermanager->getByID($customer2->getIdCustomer());
 
-    $test2 = $customermanager->duplicate($customer2, $_POST["case"][0]);
-}*/
+    $test2 = $customermanager->duplicate($customer2, $_POST["case"][0]);*/
+}
 ?>
