@@ -13,9 +13,9 @@ else
 }
 
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-$count = $bd->query('SELECT * FROM devis  WHERE `annee` >= 2018  AND societe !="nmcp" AND societe !="hydro" AND etat != "P" GROUP BY num_devis ORDER BY num_devis ASC ');
+$count = $bd->query('SELECT * FROM devis  WHERE societe !="nmcp" AND societe !="hydro" AND etat != "P" GROUP BY num_devis ORDER BY num_devis ASC ');
 $maxrow = $count->rowCount();
-$reponse = $bd->query('SELECT * FROM devis WHERE `annee` >= 2018 AND societe !="nmcp" AND societe !="hydro" AND etat != "P" GROUP BY num_devis ORDER BY num_devis ASC  LIMIT '.$row.',1');
+$reponse = $bd->query('SELECT * FROM devis WHERE  societe !="nmcp" AND societe !="hydro" AND etat != "P" GROUP BY num_devis ORDER BY num_devis ASC  LIMIT '.$row.',1');
 $donnees = $reponse->fetch();
 
 $array = array();
