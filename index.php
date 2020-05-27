@@ -23,8 +23,6 @@
 <br>
 <a href="backup_folder.php">Page pour tester la récupération des dossiers</a>
 <br>
-<a href="backup_nocontact_folder.php">Page pour tester la récupération des dossiers sans contact</a>
-<br>
 <a href="backup_quotation.php">Page pour tester la récupération des devis</a>
 <br>
 <a href="backup_proformas.php">Page pour tester la récupération des proformas</a>
