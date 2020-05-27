@@ -15,9 +15,7 @@ $folderId = $_POST["folder"];
 $customerId = $_POST["customerId"];
 $contactId = $_POST["contact-select"];
 $label = $_POST["label"];
-$year = $_POST["year"];
-$month = $_POST["month"];
-$day = $_POST["day"];
+$date = $_POST["date"];
 if(empty($_POST['comment'])){
     $comment = "";
 }else{
@@ -33,9 +31,7 @@ $data = array(
     'quotationNumber' => $quotationNumber,
     'status' => $status,
     'label' => $label,
-    'year' => $year,
-    'month' => $month,
-    'day' => $day,
+    'date' => $date,
     'type' => $type,
     'comment' => $comment,
     'folderId' => $folderId,
