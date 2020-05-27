@@ -20,7 +20,7 @@ $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8',
 $count = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" OR societe ="cmg" ');
 $maxrow = $count->rowCount();
 
-$req = $bd->query('SELECT * FROM dossier WHERE societe="concept" OR societe ="concerto" OR societe="agence" OR societe = "itech" OR societe ="cmg" LIMIT '.$i.',1 ');
+$req = $bd->query('SELECT * FROM dossier WHERE societe !="nmcp" AND societe !="hydro" LIMIT '.$i.',1');
 $recup = $req->fetch();
 
 
