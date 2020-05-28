@@ -18,9 +18,6 @@ $maxrow = $count->rowCount();
 $reponse = $bd->query('SELECT * FROM factures WHERE annee >= "2018" AND societe !="nmcp" AND societe !="hydro" AND societe !="si2p" AND societe !="databack" AND etat != "P" GROUP BY num_fact ORDER BY num_fact ASC  LIMIT '.$row.',1');
 $donnees = $reponse->fetch();
 
-print_r($donnees);
-
-
 $array = array();
 
 $req = $bd->query('SELECT * FROM dossier WHERE id='.$donnees["dossier"].' ');
