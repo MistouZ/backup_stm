@@ -34,8 +34,6 @@ else{
 
     echo $donnees["num_devis"];
 
-    print_r($donnees);
-
     $company = new Company($array);
     $companymanager = new CompaniesManager($bdd);
     $folder = new Folder($array);
@@ -46,6 +44,8 @@ else{
     $company = $companymanager->getByNameData($donnees["societe"]);
     $idCompany = $company->getIdcompany();
     $folder = $foldermanager->getByNumFolder($val["num_doss"], $idCompany);
+
+    print_r($folder);
 
     if ($donnees["dossier"] == 0 || $val["etat"] == "A")
     {
