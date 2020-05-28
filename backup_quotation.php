@@ -26,7 +26,7 @@ $val = $req->fetch();
 if(empty($val)){
     echo "pas de dossier";
     $i++;
-    header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
+    header('Location: http://test.bitwin.nc/backup_quotation.php?row=' .$i);
 }
 else{
 
