@@ -39,6 +39,8 @@ else{
     $folder = new Folder($array);
     $foldermanager = new FoldersManager($bdd);
 
+    echo $donnees["societe"];
+
     $company = $companymanager->getByNameData($donnees["societe"]);
     $idCompany = $company->getIdcompany();
 
