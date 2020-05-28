@@ -19,7 +19,7 @@ $reponse = $bd->query('SELECT * FROM devis WHERE  societe !="nmcp" AND societe !
 $donnees = $reponse->fetch();
 
 print_r($donnees);
-
+/*
 $array = array();
 
 $req = $bd->query('SELECT * FROM dossier WHERE id='.$donnees["dossier"].' ');
