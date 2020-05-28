@@ -45,8 +45,6 @@ else{
     $idCompany = $company->getIdcompany();
     $folder = $foldermanager->getByNumFolder($val["num_doss"], $idCompany);
 
-    print_r($folder);
-
     print_r($donnees);
 
     if ($donnees["dossier"] == 0 || $val["etat"] == "A")
