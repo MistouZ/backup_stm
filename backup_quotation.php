@@ -23,7 +23,7 @@ $array = array();
 $req = $bd->query('SELECT * FROM dossier WHERE id='.$donnees["dossier"].' ');
 $val = $req->fetch();
 
-if(empty($val){
+if(empty($val)){
     echo "pas de dossier";
     $i++;
     header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
