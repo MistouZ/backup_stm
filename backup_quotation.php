@@ -44,8 +44,6 @@ else{
     $company = $companymanager->getByNameData($donnees["societe"]);
     $idCompany = $company->getIdcompany();
 
-    echo $idCompany;
-
     $folder = $foldermanager->getByNumFolder($val["num_doss"], $idCompany);
 
 
