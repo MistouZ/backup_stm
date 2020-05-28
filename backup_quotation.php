@@ -18,10 +18,6 @@ $maxrow = $count->rowCount();
 $reponse = $bd->query('SELECT * FROM devis WHERE  societe !="nmcp" AND societe !="hydro" AND etat != "P" GROUP BY num_devis ORDER BY num_devis ASC  LIMIT '.$row.',1');
 $donnees = $reponse->fetch();
 
-
-
-$array = array();
-
 $req = $bd->query('SELECT * FROM dossier WHERE id='.$donnees["dossier"].' ');
 $val = $req->fetch();
 
@@ -32,7 +28,10 @@ if(empty($val)){
 }
 else{
 
+    $array = array();
+
     echo $donnees["num_devis"];
+    echo $donnees["societe"];
 
     $company = new Company($array);
     $companymanager = new CompaniesManager($bdd);
