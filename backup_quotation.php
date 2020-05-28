@@ -34,6 +34,8 @@ else{
 
     echo $donnees["num_devis"];
 
+    print_r($donnees);
+
     $company = new Company($array);
     $companymanager = new CompaniesManager($bdd);
     $folder = new Folder($array);
