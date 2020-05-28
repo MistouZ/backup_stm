@@ -27,8 +27,8 @@ print_r($val);
 
 if(empty($val)){
     echo "pas de dossier";
-    $i++;
-    header('Location: http://test.bitwin.nc/backup_quotation.php?row=' .$i);
+    $row++;
+    header('Location: http://test.bitwin.nc/backup_quotation.php?row=' .$row);
 }
 else{
 
