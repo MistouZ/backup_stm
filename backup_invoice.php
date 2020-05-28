@@ -2,8 +2,6 @@
 include '_cfg/cfg.php';
 include '_cfg/fonctions.php';
 
-echo "je suis là";
-
 if (isset($_GET["row"]))
 {
     $row = $_GET["row"];
