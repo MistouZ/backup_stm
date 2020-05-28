@@ -31,14 +31,15 @@ else{
     $array = array();
 
     echo $donnees["num_devis"];
-    echo $donnees["societe"];
+    if ($donnees["societe"] == "agence")
+    {
+        $donnees["societe"] = "bitwin";
+    }
 
     $company = new Company($array);
     $companymanager = new CompaniesManager($bdd);
     $folder = new Folder($array);
     $foldermanager = new FoldersManager($bdd);
-
-    echo $donnees["societe"];
 
     $company = $companymanager->getByNameData($donnees["societe"]);
     $idCompany = $company->getIdcompany();
