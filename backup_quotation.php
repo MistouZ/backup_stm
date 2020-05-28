@@ -48,11 +48,6 @@ else{
         $row++;
         header('Location: http://test.bitwin.nc/backup_quotation.php?row='.$row);
     }
-    elseif($val["annee"] < 2018 && is_null($folder))
-    {
-        echo "je passe là";
-        header('Location: http://test.bitwin.nc/backup_missing_folder.php?folderId='.$donnees["dossier"].'&quotation='.$row);
-    }
 
     $comments = str_replace ("<br />"," ",nl2br(utf8_decode($donnees["commentaire"])));
 
