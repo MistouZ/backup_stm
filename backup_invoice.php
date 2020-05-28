@@ -335,7 +335,7 @@ else{
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
-            document.forms["devis"].submit();
+            document.forms["facture"].submit();
         }
 
         function autoRefresh(){
