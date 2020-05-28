@@ -184,6 +184,8 @@ else{
     }
     $donnees["libelle"] = str_replace($old, $new, $donnees["libelle"]);
 
+    print_r($donnees);
+
     ?>
     <div class="row">
         <div class="col-md-12">
