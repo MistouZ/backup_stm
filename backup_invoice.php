@@ -26,7 +26,7 @@ $val = $req->fetch();
 if(empty($val)){
     echo "pas de dossier";
     $row++;
-    header('Location: http://test.bitwin.nc/backup_quotation.php?row=' .$row);
+    header('Location: http://test.bitwin.nc/backup_invoice.php?row=' .$row);
 }
 else{
 
@@ -52,7 +52,7 @@ else{
     if ($donnees["dossier"] == 0 || $val["etat"] == "A")
     {
         $row++;
-        header('Location: http://test.bitwin.nc/backup_quotation.php?row='.$row);
+        header('Location: http://test.bitwin.nc/backup_invoice.php?row='.$row);
     }
 
     $comments = str_replace ("<br />"," ",nl2br(utf8_decode($donnees["commentaire"])));
