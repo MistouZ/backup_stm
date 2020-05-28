@@ -18,8 +18,8 @@ $maxrow = $count->rowCount();
 $reponse = $bd->query('SELECT * FROM devis WHERE  societe !="nmcp" AND societe !="hydro" AND etat != "P" GROUP BY num_devis ORDER BY num_devis ASC  LIMIT '.$row.',1');
 $donnees = $reponse->fetch();
 
-print_r($donnees);
-/*
+
+
 $array = array();
 
 $req = $bd->query('SELECT * FROM dossier WHERE id='.$donnees["dossier"].' ');
@@ -41,6 +41,7 @@ else{
     $folder = new Folder($array);
     $foldermanager = new FoldersManager($bdd);
 
+    print_r($folder);
 
 
     $company = $companymanager->getByNameData($donnees["societe"]);
