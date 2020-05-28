@@ -25,7 +25,7 @@ $val = $req->fetch();
 
 echo $donnees["num_devis"];
 
-print_r($val);
+print_r($donnees);
 
 $company = new Company($array);
 $companymanager = new CompaniesManager($bdd);
