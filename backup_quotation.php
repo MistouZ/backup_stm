@@ -39,12 +39,14 @@ else{
     $folder = new Folder($array);
     $foldermanager = new FoldersManager($bdd);
 
-    print_r($folder);
+
 
 
     $company = $companymanager->getByNameData($donnees["societe"]);
     $idCompany = $company->getIdcompany();
     $folder = $foldermanager->getByNumFolder($val["num_doss"], $idCompany);
+
+    print_r($folder);
 
     print_r($donnees);
 
