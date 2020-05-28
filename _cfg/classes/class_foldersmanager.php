@@ -108,6 +108,30 @@ class FoldersManager
         }
     }
 
+    /**
+     * Find a folder by his folderNumber
+     * @param $foldername
+     * @return folder
+     */
+    public function getByNumFolder($numfolder, $idcompany)
+    {
+        try{
+            $numfolder = (integer) $numfolder;
+            $q = $this->_db->query('SELECT * FROM folder WHERE folderNumber ='.$numfolder.' AND companyId='.$idcompany);
+            $donnees = $q->fetch(PDO::FETCH_ASSOC);
+            if(!empty($donnees)){
+                return new Folder($donnees);
+            }
+            else{
+                return null;
+            }
+
+        }
+        catch(Exception $e){
+            return null;
+        }
+    }
+
 
     /**
      * Get all the folder in the BDD for the selected company
