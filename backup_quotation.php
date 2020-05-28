@@ -30,6 +30,8 @@ $companymanager = new CompaniesManager($bdd);
 $folder = new Folder($array);
 $foldermanager = new FoldersManager($bdd);
 
+
+/*
 $company = $companymanager->getByNameData($donnees["societe"]);
 $idCompany = $company->getIdcompany();
 $folder = $foldermanager->getByNumFolder($val["num_doss"], $idCompany);
