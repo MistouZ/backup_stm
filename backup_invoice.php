@@ -13,9 +13,9 @@ else
 }
 
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-$count = $bd->query('SELECT * FROM factures  WHERE societe !="nmcp" AND societe !="hydro" AND societe != "databack" AND etat != "P" GROUP BY num_fact ORDER BY num_fact ASC ');
+$count = $bd->query('SELECT * FROM factures  WHERE societe ="concept" AND societe ="cmg" AND societe = "itech" AND societe = "concerto" AND societe = "agence" AND etat != "P" GROUP BY num_fact ORDER BY num_fact ASC ');
 $maxrow = $count->rowCount();
-$reponse = $bd->query('SELECT * FROM factures WHERE societe !="nmcp" AND societe !="hydro" AND societe != "databack" AND etat != "P" GROUP BY num_fact ORDER BY num_fact ASC  LIMIT '.$row.',1');
+$reponse = $bd->query('SELECT * FROM factures WHERE societe ="concept" AND societe ="cmg" AND societe = "itech" AND societe = "concerto" AND societe = "agence" AND etat != "P" GROUP BY num_fact ORDER BY num_fact ASC  LIMIT '.$row.',1');
 $donnees = $reponse->fetch();
 
 print_r($donnees);
