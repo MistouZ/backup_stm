@@ -47,6 +47,8 @@ else{
 
     print_r($folder);
 
+    print_r($donnees);
+
     if ($donnees["dossier"] == 0 || $val["etat"] == "A")
     {
         $row++;
@@ -184,7 +186,7 @@ else{
     }
     $donnees["libelle"] = str_replace($old, $new, $donnees["libelle"]);
 
-    print_r($donnees);
+
 
     ?>
     <div class="row">
