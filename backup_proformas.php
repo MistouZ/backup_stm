@@ -28,7 +28,7 @@ echo $donnees["num_pro"];
 if(empty($val)){
     echo "pas de dossier";
     $row++;
-    header('Location: http://test.bitwin.nc/backup_quotation.php?row=' .$row);
+    header('Location: http://test.bitwin.nc/backup_proformas.php?row=' .$row);
 }
 else{
 
@@ -54,7 +54,7 @@ else{
     if ($donnees["dossier"] == 0 || $val["etat"] == "A")
     {
         $row++;
-        header('Location: http://test.bitwin.nc/backup_quotation.php?row='.$row);
+        header('Location: http://test.bitwin.nc/backup_proformas.php?row='.$row);
     }
 
     $comments = str_replace ("<br />"," ",nl2br(utf8_decode($donnees["commentaire"])));
@@ -204,7 +204,7 @@ else{
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
-                    <form action="<?php echo URLHOST."_pages/_post/creer_devis_backup.php"; ?>" method="post" id="devis" name="devis" class="form-horizontal">
+                    <form action="<?php echo URLHOST."_pages/_post/creer_proforma_backup.php"; ?>" method="post" id="devis" name="devis" class="form-horizontal">
                         <div class="form-body">
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="customer-select">Client
