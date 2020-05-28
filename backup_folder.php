@@ -264,7 +264,7 @@ if (empty($customer))
     $customermanager = new CustomersManager($bdd);
     $customer = $customermanager->getByName($donnees["client"]);
 }
-/*
+
 
 ?>
 <div class="row">
@@ -348,7 +348,7 @@ if (empty($customer))
     </div>
 </div>
 <script type="text/javascript">
-    /*window.onload=function(){
+    window.onload=function(){
           var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
           function submitform(){
@@ -359,5 +359,5 @@ if (empty($customer))
               clearTimeout(auto);
               auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
           }
-      }*/
+      }
 </script>
