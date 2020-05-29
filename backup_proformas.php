@@ -200,7 +200,7 @@ else{
             <div class="portlet box blue-chambray">
                 <div class="portlet-title">
                     <div class="caption">
-                        <i class="fas fa-file-medical"></i>Modification du devis <span style="font-weight: 800; font-style: italic;"><?php echo $donnees["num_proforma"]; ?></span></div>
+                        <i class="fas fa-file-medical"></i>Modification du devis <span style="font-weight: 800; font-style: italic;"><?php echo $donnees["num_pro"]; ?></span></div>
                 </div>
                 <div class="portlet-body form">
                     <!-- BEGIN FORM-->
@@ -305,7 +305,7 @@ else{
                             </div>
                             <div>
                                 <input type="hidden" name="idcompany" value="<?php echo $company->getIdcompany();?>" />
-                                <input type="hidden" name="quotationNumber" value="<?php echo $donnees["num_proforma"];?>" />
+                                <input type="hidden" name="quotationNumber" value="<?php echo $donnees["num_pro"];?>" />
                                 <input type="hidden" name="isActive" value="<?php echo $donnees["etat"];?>" />
                                 <input type="hidden" name="date" value="<?php echo $donnees["annee"]."-".$donnees["mois"]."-".$donnees["jour"];?>" />
                                 <input type="hidden" value="<?php echo $row; ?>" name="row" id="row" />
