@@ -22,7 +22,9 @@ $donnees = $reponse->fetch();
 
 echo $donnees["num_pro"];
 
-echo $donnees["annee"]." ".$donnees["mois"]." ".$donnees["jour"];
+$date = $donnees["annee"]."-".$donnees["mois"]."-".$donnees["jour"];
+
+echo $date;
 /*
     ?>
     <div class="row">
