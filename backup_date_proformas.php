@@ -13,10 +13,10 @@ else
 }
 
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-$count = $bd->query('SELECT * FROM proformas  WHERE societe !="nmcp" AND societe !="hydro" AND societe !="" AND etat = "E" GROUP BY num_pro ORDER BY num_pro ASC');
+$count = $bd->query('SELECT * FROM proformas  WHERE annee >= 2018 AND societe !="nmcp" AND societe !="hydro" AND societe !="" AND etat = "E" GROUP BY num_pro ORDER BY num_pro ASC');
 $maxrow = $count->rowCount();
 
-$reponse = $bd->query('SELECT * FROM proformas  WHERE societe !="nmcp" AND societe !="hydro" AND societe !="" AND etat = "E" GROUP BY num_pro ORDER BY num_pro ASC LIMIT '.$row.',1');
+$reponse = $bd->query('SELECT * FROM proformas  WHERE annee >= 2018 AND  societe !="nmcp" AND societe !="hydro" AND societe !="" AND etat = "E" GROUP BY num_pro ORDER BY num_pro ASC LIMIT '.$row.',1');
 $donnees = $reponse->fetch();
 
 
