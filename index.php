@@ -27,8 +27,6 @@
 <br>
 <a href="backup_proformas.php">Page pour tester la récupération des proformas</a>
 <br>
-<a href="backup_date_proformas.php">Page update les dates des proformas</a>
-<br>
 <a href="backup_invoice.php">Page pour tester la récupération des factures</a>
 <br>
 <a href="backup_cost.php">Page pour tester la récupération des couts des devis</a>
