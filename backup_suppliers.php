@@ -21,10 +21,10 @@ $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8',
 
 $count = $bd->query('SELECT * FROM dossier  WHERE societe !="nmcp" AND societe !="hydro" GROUP BY client');
 $maxrow = $count->rowCount();
-/*
+
 $req = $bd->query('SELECT * FROM dossier  WHERE societe !="nmcp" AND societe !="hydro" GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
-
+/*
 $devis_achat = $bd->query('SELECT * FROM devis_achat WHERE dossier="'.$recup["id"].'"');
 $achat = $devis_achat->fetch();
 
