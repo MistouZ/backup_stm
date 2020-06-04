@@ -34,7 +34,7 @@ $achat = $devis_achat->fetch();
 
 print_r($achat);
 if(empty($achat)){
-    echo "pas de dossier";
+    echo "pas d'achat ";
     $row++;
     header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' .$row);
 }
