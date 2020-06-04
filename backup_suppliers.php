@@ -15,7 +15,7 @@ else
 {
     $row=0;
 }
-/*
+
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
 
@@ -24,7 +24,7 @@ $maxrow = $count->rowCount();
 
 $req = $bd->query('SELECT * FROM dossier  WHERE societe !="nmcp" AND societe !="hydro" GROUP BY client LIMIT '.$i.',1 ');
 $recup = $req->fetch();
-
+/*
 $query = 'SELECT * FROM devis_achat WHERE dossier="'.$recup["id"].'"';
 
 //echo $query;
