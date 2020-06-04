@@ -40,14 +40,15 @@ if(empty($achat)){
     $row++;
     header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' .$row);
 }
-else{
-    if(empty($achat["fournisseur_1"]) || $achat["fournisseur_1"] =="")
-    {$row++;
-        header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' .$row);
+else {
+    if (empty($achat["fournisseur_1"]) || $achat["fournisseur_1"] == "") {
+        $row++;
+        header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' . $row);
 
+    } else {
+        echo $achat["fournisseur_1"];
     }
-    else {
-
+}/*
         $count = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"');
         $maxrow = $count->rowCount();
         $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '" LIMIT ' . $i . ',1');
@@ -288,7 +289,7 @@ else{
                             </label>
                             <?php
                             /*récupération des sous comptes du fournisseur par société */
-                            foreach ($companymanager as $company)
+ /*                           foreach ($companymanager as $company)
                             {
                                 ?>
                                 <div class="form-row col-md-1" id="subaccount[<?php echo $company->getIdCompany(); ?>]">
