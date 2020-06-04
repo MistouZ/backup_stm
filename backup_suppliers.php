@@ -33,6 +33,12 @@ $devis_achat = $bd->query('SELECT * FROM devis_achat WHERE dossier="'.$recup["id
 $achat = $devis_achat->fetch();
 
 print_r($achat);
+if(empty($achat)){
+    echo "pas de dossier";
+    $row++;
+    header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' .$row);
+}
+else{
 
 $count = $bd->query('SELECT * FROM fournisseurs WHERE nom="'.$achat["fournisseur_1"].'" OR nom = "'.$achat["fournisseur_2"].'"');
 $maxrow = $count->rowCount();
@@ -306,8 +312,11 @@ $companymanager = $companymanager->getList();
         <!-- END VALIDATION STATES-->
     </div>
 </div>
+    <?php
+}
+?>
 <script type="text/javascript">
-   /* window.onload=function(){
+   window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -318,5 +327,5 @@ $companymanager = $companymanager->getList();
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }*/
+    }
 </script>
