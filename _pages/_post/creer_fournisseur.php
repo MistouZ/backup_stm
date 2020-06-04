@@ -33,9 +33,6 @@ $maxrow = $_POST["maxrow"];
 $supplier = new Suppliers($array);
 $suppliermanager = new SuppliersManager($bdd);
 
-
-
-
 $test = $suppliermanager->add($supplier, $_POST["case"],$_POST["account"],$_POST["subaccount"]);
 
 print_r($test);
