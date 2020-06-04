@@ -41,12 +41,14 @@ else {
     } else {
         echo $achat["fournisseur_1"];
 
-        $query = 'SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"';
+        $query = 'SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"LIMIT ' . $row . ',1';
 
+        echo $query;
         $count = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"');
         $maxrow = $count->rowCount();
         $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '" LIMIT ' . $row . ',1');
         $donnees = $reponse->fetch();
+        print_r($donnees);
 
         $new2old = array(
             'á' => 'Ã¡',
@@ -324,7 +326,7 @@ else {
 }
 ?>
 <script type="text/javascript">
-   window.onload=function(){
+  /* window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -335,5 +337,5 @@ else {
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }
+    }*/
 </script>
