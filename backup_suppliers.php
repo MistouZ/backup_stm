@@ -278,7 +278,7 @@ $companymanager = $companymanager->getList();
                                 <span class="required"> * </span>
                             </label>
                             <?php
-                            /*récupération des sous comptes du fournisseur par société */
+                            /*récupération des sous comptes du fournisseur par société
                             foreach ($companymanager as $company)
                             {
                                 ?>
