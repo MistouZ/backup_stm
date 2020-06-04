@@ -11,11 +11,11 @@ include '_cfg/fonctions.php';
 
 if (isset($_GET["row"]))
 {
-    $i = $_GET["row"];
+    $row = $_GET["row"];
 }
 else
 {
-    $i=0;
+    $row=0;
 }
 
 //récupération des données de l'utilisateur
@@ -293,7 +293,7 @@ $companymanager = $companymanager->getList();
                         </div>
                     </div>
                     <div>
-                        <input type="hidden" value="<?php echo $i; ?>" name="row" id="row" />
+                        <input type="hidden" value="<?php echo $row; ?>" name="row" id="row" />
                         <input type="hidden" value="<?php echo $maxrow; ?>" name="maxrow" id="maxrow" />
                     </div>
                     <div class="form-actions">
