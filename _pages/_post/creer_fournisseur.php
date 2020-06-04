@@ -30,8 +30,10 @@ $array = array(
 $row = $_POST["row"];
 $maxrow = $_POST["maxrow"];
 
-$customer = new Customers($array);
-$customermanager = new CustomersManager($bdd);
+$supplier = new Suppliers($array);
+$suppliermanager = new SuppliersManager($bdd);
+
+
 
 
 $test = $suppliermanager->add($supplier, $_POST["case"],$_POST["account"],$_POST["subaccount"]);
