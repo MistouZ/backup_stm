@@ -29,7 +29,7 @@ $devis_achat = $bd->query('SELECT * FROM devis_achat WHERE dossier="'.$recup["id
 $achat = $devis_achat->fetch();
 
 print_r($achat);
-
+/*
 if(empty($achat)){
     echo "pas d'achat ";
     $row++;
@@ -277,6 +277,7 @@ $companymanager = $companymanager->getList();
                             </label>
                             <?php
                             /*récupération des sous comptes du fournisseur par société */
+/*
                             foreach ($companymanager as $company)
                             {
                                 ?>
