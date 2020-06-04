@@ -46,7 +46,7 @@ else {
         echo $query;
         $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"');
         $donnees = $reponse->fetch();
-        print_r($donnees);
+       // print_r($donnees);
 
         $new2old = array(
             'á' => 'Ã¡',
