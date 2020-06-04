@@ -41,7 +41,7 @@ else {
     } else {
         echo $achat["fournisseur_1"];
 
-        $query = 'SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"LIMIT ' . $row . ',1';
+        $query = 'SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"';
 
         echo $query;
         $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"');
