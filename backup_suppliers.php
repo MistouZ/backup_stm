@@ -45,8 +45,7 @@ else {
 
     } else {
         echo $achat["fournisseur_1"];
-    }
-}
+
         $count = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"');
         $maxrow = $count->rowCount();
         $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '" LIMIT ' . $i . ',1');
