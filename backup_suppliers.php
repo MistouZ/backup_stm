@@ -20,9 +20,21 @@ else
 
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
-$count = $bd->query('SELECT * FROM fournisseurs WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O"');
+
+$count = $bd->query('SELECT * FROM dossier  WHERE societe !="nmcp" AND societe !="hydro" GROUP BY client');
 $maxrow = $count->rowCount();
-$reponse = $bd->query('SELECT * FROM fournisseurs WHERE concept="O" OR concerto="O" OR itech="O" OR bitwin ="O" OR cmg="O" LIMIT '.$i.',1');
+
+$req = $bd->query('SELECT * FROM dossier  WHERE societe !="nmcp" AND societe !="hydro" GROUP BY client LIMIT '.$i.',1 ');
+$recup = $req->fetch();
+
+
+$devis_achat = $bd->query('SELECT * FROM devis_achat WHERE dossier="'.$recup["id"].'"');
+$achat = $devis_achat->fetch();
+
+
+$count = $bd->query('SELECT * FROM fournisseurs WHERE nom="'.$achat["fournisseur_1"].'" OR nom = "'.$achat["fournisseur_2"].'"');
+$maxrow = $count->rowCount();
+$reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="'.$achat["fournisseur_1"].'" OR nom = "'.$achat["fournisseur_2"].'" LIMIT '.$i.',1');
 $donnees = $reponse->fetch();
 
 $new2old = array(
@@ -293,7 +305,7 @@ $companymanager = $companymanager->getList();
     </div>
 </div>
 <script type="text/javascript">
-    window.onload=function(){
+   /* window.onload=function(){
         var auto = setTimeout(function(){ autoRefresh(); }, 100);
 
         function submitform(){
@@ -304,5 +316,5 @@ $companymanager = $companymanager->getList();
             clearTimeout(auto);
             auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
         }
-    }
+    }*/
 </script>
