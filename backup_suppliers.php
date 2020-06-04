@@ -27,7 +27,7 @@ $recup = $req->fetch();
 
 $query = 'SELECT * FROM devis_achat WHERE dossier="'.$recup["id"].'"';
 
-echo $query;
+//echo $query;
 
 /*
 $devis_achat = $bd->query('SELECT * FROM devis_achat WHERE dossier="'.$recup["id"].'"');
