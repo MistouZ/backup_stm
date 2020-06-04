@@ -46,7 +46,7 @@ else {
     } else {
         echo $achat["fournisseur_1"];
     }
-}/*
+}
         $count = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '"');
         $maxrow = $count->rowCount();
         $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_1"] . '" OR nom = "' . $achat["fournisseur_2"] . '" LIMIT ' . $i . ',1');
@@ -178,6 +178,11 @@ else {
         $donnees["adresse"] = str_replace($old, $new, $donnees["adresse"]);
         $donnees["adresse"] = str_replace("<br />", " ", nl2br($donnees["adresse"]));
 
+        if($donnees["agence"] == "O"){
+            $donnees["bitwin"] = "O";
+            $donnees["sscompte_bitwin"] = $donnees["sscompte_agence"];
+        }
+
         $array = array();
         $company = new Company($array);
         $companymanager = new CompaniesManager($bd);
@@ -287,7 +292,7 @@ else {
                             </label>
                             <?php
                             /*récupération des sous comptes du fournisseur par société */
- /*                           foreach ($companymanager as $company)
+                           foreach ($companymanager as $company)
                             {
                                 ?>
                                 <div class="form-row col-md-1" id="subaccount[<?php echo $company->getIdCompany(); ?>]">
