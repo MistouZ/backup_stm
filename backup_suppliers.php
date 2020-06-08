@@ -41,10 +41,10 @@ else {
     } else {
         echo $achat["fournisseur_2"];
 
-        $query = 'SELECT * FROM fournisseurs WHERE nom="Legitime demence"';
+        $query = 'SELECT * FROM fournisseurs WHERE nom="Concerto"';
 
         echo $query;
-        $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="Legitime demence"');
+        $reponse = $bd->query('SELECT * FROM fournisseurs WHERE nom="Concerto"');
         $donnees = $reponse->fetch();
        // print_r($donnees);
 
