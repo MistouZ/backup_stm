@@ -34,12 +34,12 @@ if(empty($achat)){
     header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' .$row);
 }
 else {
-    if (empty($achat["fournisseur_1"]) || $achat["fournisseur_1"] == "") {
+    if (empty($achat["fournisseur_2"]) || $achat["fournisseur_2"] == "") {
         $row++;
         header('Location: http://test.bitwin.nc/backup_suppliers.php?row=' . $row);
 
     } else {
-        echo $achat["fournisseur_1"];
+        echo $achat["fournisseur_2"];
 
         $query = 'SELECT * FROM fournisseurs WHERE nom="' . $achat["fournisseur_2"] . '"';
 
