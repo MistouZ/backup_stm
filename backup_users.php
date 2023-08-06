@@ -36,7 +36,7 @@ $companymanager = $companymanager->getList();
             <div class="portlet-title">
                 <div class="caption">
                     <i class="icon-settings"></i>
-                    <span class="caption-subject sbold uppercase">Modification de l'utilisateur <span style="font-style: italic; font-weight: 800;"><?php echo $donnees["login"]; ?></span></span>
+                    <span class="caption-subject sbold uppercase">Upload de l'utilisateur <span style="font-style: italic; font-weight: 800;"><?php echo $donnees["login"]; ?></span></span>
                 </div>
             </div>
             <div class="portlet-body form">
