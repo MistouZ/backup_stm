@@ -63,8 +63,8 @@ class FoldersManager
             $q->bindValue(':contactId', $folder->getContactId(), PDO::PARAM_INT);
     
             $q->execute();
-            
-            return "ok";
+
+            return $folderNumber;
         }
         catch(Exception $e){
             return null;
@@ -102,30 +102,6 @@ class FoldersManager
             $q = $this->_db->query('SELECT * FROM folder WHERE idFolder ='.$folderId);
             $donnees = $q->fetch(PDO::FETCH_ASSOC);
             return new Folder($donnees);
-        }
-        catch(Exception $e){
-            return null;
-        }
-    }
-
-    /**
-     * Find a folder by his folderNumber
-     * @param $foldername
-     * @return folder
-     */
-    public function getByNumFolder($numfolder, $idcompany)
-    {
-        try{
-            $numfolder = (integer) $numfolder;
-            $q = $this->_db->query('SELECT * FROM folder WHERE folderNumber ='.$numfolder.' AND companyId='.$idcompany);
-            $donnees = $q->fetch(PDO::FETCH_ASSOC);
-            if(!empty($donnees)){
-                return new Folder($donnees);
-            }
-            else{
-                return null;
-            }
-
         }
         catch(Exception $e){
             return null;
@@ -295,34 +271,5 @@ class FoldersManager
             return null;
         }
     }
-
-    /**
-     * @param Folder $folder
-     * Insertion folder in the DB
-     */
-    public function addBackup(Folder $folder)
-    {
-        try{
-            $q = $this->_db->prepare('INSERT INTO folder (folderNumber, label, date, isActive,description,seller, companyId, customerId, contactId) VALUES (:folderNumber, :label, :date, :isActive, :description, :seller, :companyId,:customerId,:contactId)');
-            $q->bindValue(':folderNumber', $folder->getFolderNumber(), PDO::PARAM_STR);
-            $q->bindValue(':label', $folder->getLabel(), PDO::PARAM_STR);
-            $q->bindValue(':date', $folder->getDate(), PDO::PARAM_STR );
-            $q->bindValue(':isActive', $folder->getIsActive(), PDO::PARAM_INT);
-            $q->bindValue(':description', $folder->getDescription(), PDO::PARAM_STR);
-            $q->bindValue(':seller', $folder->getSeller(), PDO::PARAM_STR);
-            $q->bindValue(':companyId', $folder->getCompanyId(), PDO::PARAM_INT);
-            $q->bindValue(':customerId', $folder->getCustomerId(), PDO::PARAM_INT);
-            $q->bindValue(':contactId', $folder->getContactId(), PDO::PARAM_INT);
-
-            $q->execute();
-
-            return "ok";
-        }
-        catch(Exception $e){
-            return null;
-        }
-
-    }
-
 
 }

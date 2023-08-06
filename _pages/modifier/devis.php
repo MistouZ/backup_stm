@@ -367,12 +367,12 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
                                                             <select id="taxeOption<?php echo $j; ?>" class="taxe form-control" name="taxeOption[<?php echo $j; ?>]">
                                                                 <option value="">Sélectionnez ...</option>
                                                                 <?php
-                                                                /*$taxmanager = $taxmanager->getListByCustomer($folder->getCustomerId());
+                                                                //$taxmanager = $taxmanager->getListByCustomer($folder->getCustomerId());
                                                                 foreach ($taxmanager as $tax){
                                                                    ?>
-                                                                    <option value="<?php echo $tax->getValue(); ?>"><?php echo $tax->getPercent()." %"; ?></option>
+                                                                    <option value="<?php echo $tax->getValue(); ?>" <?php if($description->getTax()==$tax->getValue()){echo "selected=\"selected\""; } ?> ><?php echo $tax->getName(); ?></option>
                                                                     <?php
-                                                                }*/
+                                                                }
                                                                 ?>
                                                             </select>
                                                         </div>
@@ -436,6 +436,12 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
                                                                     }
                                                                     ?>
                                                                 </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6" style="display: none;">
+                                                            <div class="form-group" style="margin-left: 0px !important; margin-right: 0px !important;">
+                                                                <label class="control-label">ID Coût</label>
+                                                                <input type="digits" id="idCout<?php echo $k; ?>" name="idCout[<?php echo $k; ?>]" value="<?php echo $cost->getIdCost(); ?>" class="form-control" placeholder="HT">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -753,6 +759,9 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
         if(nbDiv>1){
             selectedDiv.remove();
         }else{
+            document.getElementById("fournisseur"+selected).selectedIndex  = 0;
+            document.getElementById("descriptionCout"+selected).value = "";
+            document.getElementById("prixCout"+selected).value = "";
             selectedDiv.find('div[id="divsupprCout'+selected+'"]').css('display','' ).end();
             selectedDiv.find('div[id="divsupprCout'+selected+'"]').css('display','none' ).end();
             alert("Il n'est pas possible de supprimer la dernière ligne des coûts !");

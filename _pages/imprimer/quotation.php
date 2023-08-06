@@ -52,7 +52,6 @@ switch($type){
         $quotation = $quotationmanager->getByQuotationNumber($idQuotation);
         $entete = "de l'avoir";
         $enteteIcon = '<i class="fas fa-file-prescription"></i>';
-        echo "je suis là";
         break;
 }
 
@@ -61,7 +60,7 @@ $company = $companymanager->getByNameData($companyNameData);
 $descriptions = new Description($array);
 $descriptionmanager = new DescriptionManager($bdd);
 $descriptions = $descriptionmanager->getByQuotationNumber($quotation->getQuotationNumber());
-$contact = $contactmanager->getById($folder->getContactId());
+$contact = $contactmanager->getById($quotation->getContactId());
 $user = $usermanager->get($folder->getSeller());
 $customer = $customermanager->getById($quotation->getCustomerId());
 if($quotation->getType() == "S")
@@ -170,11 +169,12 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
                                             $tax = $taxmanager->getByPercent($description->getTax()*100);
 
                                             //Calcul du détail des taxes pour l'affichage par tranche détaillée
-                                            if(isset($arrayTaxesKey[$description->getTax()])){
-                                                $arrayTaxesKey[$description->getTax()]["Montant"] = $arrayTaxesKey[$description->getTax()]["Montant"]+$taxe;
-                                            }else{
-                                                $arrayTaxesKey[$description->getTax()]['Taxe']=$tax->getName();
-                                                $arrayTaxesKey[$description->getTax()]['Montant']=$taxe;
+                                            if(isset($arrayTaxesKey[$tax->getName()]['Taxe'])){
+                                                $arrayTaxesKey[$tax->getName()]["Montant"] = $arrayTaxesKey[$tax->getName()]["Montant"]+$taxe;
+                                            }
+                                            else{                                                   
+                                                $arrayTaxesKey[$tax->getName()]['Taxe']=$tax->getName();
+                                                $arrayTaxesKey[$tax->getName()]['Montant']=$taxe;                                                    
                                             }
 
                                             $totalTaxe = $totalTaxe+$taxe;
@@ -198,6 +198,11 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+                <div class="col-md-12" style="font-size: 10px; font-weight: bold; text-align: center; padding-bottom: 10px;">
+                    Option de paiement de la TGC sur les débits conformément à l'article Lp 500-2 du codes des impôts de la Nouvelle-Calédonie.
+                </div>
         </div>
         <div class="row">
             <div class="col-md-5"></div>
@@ -230,7 +235,14 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
         <?php if ($type == "devis"){
             ?>
         <div class="row">
-            <div class="col-md-5"></div>
+            <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md-6">Le client</div>
+                    </div>
+                    <div class="row">  
+                        <div class="col-md-6" style="font-style: italic;">"Bon pour accord"</div>
+                    </div>
+            </div>
             <div class="col-md-7" style="font-size: 10px; font-style: italic;">
                 <?php echo $quotation->getComment(); ?>
             </div>
@@ -274,11 +286,11 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
 <script type="x/kendo-template" id="page-template">
     <div class="page-template">
         <div class="header" >
-            <img src="<?php echo URLHOST; ?>images/societe/<?php echo $companyNameData; ?>.jpg" alt="<?php echo $companyNameData; ?>" class="logo-default" style="max-height: 60px;" />
+            <img src="<?php echo URLHOST; ?>images/societe/<?php echo $companyNameData; ?>.jpg" alt="<?php if($type != "facture"){echo $companyNameData;} ?>" class="logo-default" style="max-height: 60px;" />
         </div>
         <div class="footer">
-            <h5> #:pageNum# / #:totalPages# </h5>
-            <img src="<?php echo URLHOST; ?>images/footer/<?php echo $companyNameData; ?>.jpg" alt="<?php echo $companyNameData; ?>" class="logo-default" style="max-height: 40px;" />
+            <h5> #:pageNum# / #:totalPages# </h5>  
+            <img src="<?php echo URLHOST; ?>images/societe/footers/<?php echo $companyNameData; ?>.jpg" alt="<?php if($type != "facture"){echo $companyNameData;} ?>" class="logo-default" style="display: block;  margin-left: auto; margin-right: auto; width: 100%; bottom : 0px" />        
         </div>
     </div>
 </script>
@@ -326,12 +338,12 @@ $date = date('d/m/Y',strtotime($quotation->getDate()));
     }
     .page-template .header {
         top: 20px;
-        border-bottom: 1px solid #000;
+        /*border-bottom: 1px solid #000;*/
         text-align: center;
     }
     .page-template .footer {
         bottom: 20px;
-        border-top: 1px solid #000;
+        /*border-top: 1px solid #000;*/
         text-align: center;
     }
 

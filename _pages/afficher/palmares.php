@@ -99,6 +99,7 @@ if(isset($_POST['valider'])) {
                     </thead>
                     <tbody>
                     <?php
+                    if(count($quotations)>0){
                     //Initialisation des valueurs pour le premier dossier
                     $k = 0;
                     $TotalPalmares = 0;
@@ -200,6 +201,7 @@ if(isset($_POST['valider'])) {
                         $k++;
 
                     }
+                    print_r($InvoiceFolderList);
                     foreach($folderList as $folder){
                         $customer = $customermanager->getById($folder->getCustomerId());
                         //initialisation au format date pour organiser le tableau
@@ -220,6 +222,7 @@ if(isset($_POST['valider'])) {
                         </tr>
                         <?php
                     }
+                }
                     ?>
                     </tbody>
                 </table>

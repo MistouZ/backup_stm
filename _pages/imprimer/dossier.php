@@ -173,7 +173,7 @@ src="
     function closeWindow() {
         setTimeout(function() {
             window.close();
-        }, 300); // 300 pour NC sur serveur MLS
+        }, 400); // 300 pour NC sur serveur MLS
     }
 
     function ExportPdf(){
@@ -208,7 +208,6 @@ src="
     }
     .page-template .header {
         top: 20px;
-        border-bottom: 1px solid #000;
         text-align: center;
     }
     .page-template .footer {

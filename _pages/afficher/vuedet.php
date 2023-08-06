@@ -28,6 +28,8 @@ $tax = new Tax($array);
 $taxmanager = new TaxManager($bdd);
 $shatteredQuotation = new ShatteredQuotation($array);
 $shatteredManager = new ShatteredQuotationManager($bdd);
+$supplier = new Suppliers($array);
+$suppliermanager = new SuppliersManager($bdd);
 
 $dateToProforma = date('d/m/Y');
 
@@ -36,6 +38,8 @@ switch($type){
         $quotation = $quotationmanager->getByQuotationNumber($idQuotation);
         $entete = "du devis";
         $enteteIcon = '<i class="fas fa-file-invoice"></i>';
+        $enteteIconOption = '<i class="fas fa-sliders-h"></i>';
+        $enteteIconCout = '<i class="fas fa-hand-holding-usd"></i>';
         $buttons = '<div class="actions">
                         <a href="'.URLHOST.$_COOKIE['company'].'/'.$type.'/modifier/'.$type2.'/'.$quotation->getQuotationNumber().'" class="btn btn-default btn-sm">
                             <i class="fas fa-edit"></i> Modifier </a>
@@ -87,14 +91,26 @@ switch($type){
                     </div>';
         break;
 }
+
+
 $folder = $foldermanager->get($quotation->getFolderId());
 $company = $companymanager->getByNameData($companyNameData);
+
 $descriptions = new Description($array);
 $descriptionmanager = new DescriptionManager($bdd);
 $descriptions = $descriptionmanager->getByQuotationNumber($quotation->getQuotationNumber());
-$contact = $contactmanager->getById($folder->getContactId());
+
+$descriptionsOption = $descriptionmanager->getOption($quotation->getQuotationNumber());
+
+$costs = new Cost($array);
+$costmanager = new CostManager($bdd);
+$costs = $costmanager->getByQuotationNumber($quotation->getQuotationNumber());
+
+$contact = $contactmanager->getById($quotation->getContactId());
 $user = $usermanager->get($folder->getSeller());
 $customer = $customermanager->getById($quotation->getCustomerId());
+
+
 if($quotation->getType() == "S")
 {
     $shatteredQuotation = $shatteredManager->getByQuotationNumberChild($quotation->getQuotationNumber());
@@ -138,6 +154,12 @@ if(isset($_GET['cat5'])){
         <?php }elseif($retour == "successDevis"){ ?>
             <div class="alert alert-success">
                 <button class="close" data-close="alert"></button> Passage en devis effectué avec succès !</div>
+        <?php }elseif($retour == "errorAvoir") { ?>
+            <div class="alert alert-danger">
+                <button class="close" data-close="alert"></button> Erreur lors du passage en avoir !</div>
+        <?php }elseif($retour == "successAvoir"){ ?>
+            <div class="alert alert-success">
+                <button class="close" data-close="alert"></button> Passage en avoir effectué avec succès !</div>
         <?php } ?>
         <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -148,15 +170,15 @@ if(isset($_GET['cat5'])){
                     </div>
                     <div class="portlet-body">
                         <div class="row static-info">
-                            <div class="col-md-5 name"> <?php echo ucwords($type); ?>: </div>
+                            <div class="col-md-5 name"> <?php echo ucwords($type); ?> : </div>
                             <div class="col-md-7 value"> <?php echo $quotation->getQuotationNumber(); ?></div>
                         </div>
                         <div class="row static-info">
-                            <div class="col-md-5 name"> Date: </div>
+                            <div class="col-md-5 name"> Date : </div>
                             <div class="col-md-7 value"> <?php echo $date; ?> <a data-toggle="modal" href="#modif_date" ><i class="fas fa-edit"></i></a></div>
                         </div>
                         <div class="row static-info">
-                            <div class="col-md-5 name"> Dossier N°: </div>
+                            <div class="col-md-5 name"> Dossier N° : </div>
                             <div class="col-md-7 value"><?php echo $folder->getFolderNumber(); ?></div>
                         </div>
                         <div class="row static-info">
@@ -203,7 +225,7 @@ if(isset($_GET['cat5'])){
         </div>
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <div class="portlet grey-cascade box">
+                <div class="portlet blue-dark box">
                     <div class="portlet-title">
                         <div class="caption">
                             <?php echo $enteteIcon; ?> Détail <?php echo $entete; ?> </div>
@@ -244,11 +266,12 @@ if(isset($_GET['cat5'])){
                                                 $tax = $taxmanager->getByPercent($description->getTax()*100);
 
                                                 //Calcul du détail des taxes pour l'affichage par tranche détaillée
-                                                if(isset($arrayTaxesKey[$description->getTax()])){
-                                                    $arrayTaxesKey[$description->getTax()]["Montant"] = $arrayTaxesKey[$description->getTax()]["Montant"]+$taxe;
-                                                }else{
-                                                    $arrayTaxesKey[$description->getTax()]['Taxe']=$tax->getName();
-                                                    $arrayTaxesKey[$description->getTax()]['Montant']=$taxe;
+                                                if(isset($arrayTaxesKey[$tax->getName()]['Taxe'])){
+                                                    $arrayTaxesKey[$tax->getName()]["Montant"] = $arrayTaxesKey[$tax->getName()]["Montant"]+$taxe;
+                                                }
+                                                else{                                                   
+                                                    $arrayTaxesKey[$tax->getName()]['Taxe']=$tax->getName();
+                                                    $arrayTaxesKey[$tax->getName()]['Montant']=$taxe;                                                    
                                                 }
 
                                                 $totalTaxe = $totalTaxe+$taxe;
@@ -281,6 +304,154 @@ if(isset($_GET['cat5'])){
                 </div>
             </div>
         </div>
+        <?php
+            if(!empty($descriptionsOption)){
+        ?>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="portlet grey-cascade box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <?php echo $enteteIconOption; ?> Options <?php echo $entete; ?> </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <form id="multiSelection" method="post">
+                                <table class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <?php
+                                            if($type == "devis"){
+                                            ?>
+                                                <th style="text-align: center !important;" class="desktop"></th>
+                                            <?php
+                                            }
+                                            ?>
+                                            <th> Description </th>
+                                            <th> Prix à l'unité </th>
+                                            <th> QT. </th>
+                                            <th> Taxe </th>
+                                            <th> Remise </th>
+                                            <th> Prix total HT </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $montantOption = 0;
+                                            $totalTaxeOption = 0;
+                                            $montantOptionHT = 0;
+                                            $arrayTaxesOptionKey =  array();
+                                            foreach($descriptionsOption as $descriptionOption){
+                                                $montantOptionLigne = $descriptionOption->getQuantity()*$descriptionOption->getPrice();
+                                                $remise = $montantOptionLigne*($descriptionOption->getDiscount()/100);
+                                                $montantOptionLigne = $montantOptionLigne-$remise;
+                                                $taxeOption = $montantOptionLigne*$descriptionOption->getTax();
+                                                $tax = $taxmanager->getByPercent($descriptionOption->getTax()*100);
+
+                                                //Calcul du détail des taxes pour l'affichage par tranche détaillée
+                                                if(isset($arrayTaxesOptionKey[$tax->getName()]['Taxe'])){
+                                                    $arrayTaxesOptionKey[$tax->getName()]["Montant"] = $arrayTaxesOptionKey[$tax->getName()]["Montant"]+$taxeOption;
+                                                }
+                                                else{                                                   
+                                                    $arrayTaxesOptionKey[$tax->getName()]['Taxe']=$tax->getName();
+                                                    $arrayTaxesOptionKey[$tax->getName()]['Montant']=$taxeOption;                                                    
+                                                }
+
+                                                $totalTaxeOption = $totalTaxeOption+$taxeOption;
+                                                $montantOptionHT = $montantOptionHT+$montantOptionLigne;
+                                                $montantOption = $montantOption+$montantOptionLigne+$taxeOption;
+                                            ?>
+                                            <tr>
+                                                <?php
+                                                if($type == "devis") {
+                                                    ?>
+                                                    <td><input class="selection" type="checkbox" name="selection[]" value="<?php echo $descriptionOption->getIdDescription(); ?>"/></td>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <td class="col-md-7"><?php echo nl2br($descriptionOption->getDescription()); ?></td>
+                                                <td class="col-md-1"><?php echo number_format($descriptionOption->getPrice(),0,","," "); ?> XPF</td>
+                                                <td><?php echo $descriptionOption->getQuantity(); ?></td>
+                                                <td><?php echo $descriptionOption->getTax()*100; ?> %</td>
+                                                <td><?php echo $descriptionOption->getDiscount(); ?> %</td>
+                                                <td class="col-md-1"><?php echo number_format($montantOptionLigne,0,","," "); ?> XPF</td>
+                                            </tr>
+                                            <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+            }
+            if(!empty($costs)){
+        ?>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="portlet red-flamingo box">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <?php echo $enteteIconCout; ?> Coûts <?php echo $entete; ?> </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <form id="multiSelection" method="post">
+                                <table class="table table-hover table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <?php
+                                            if($type == "devis"){
+                                            ?>
+                                                <th style="text-align: center !important;" class="desktop"></th>
+                                            <?php
+                                            }
+                                            ?>
+                                            <th> Fournisseur </th>
+                                            <th> Description </th>
+                                            <th> Prix HT </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            $montantCout = 0;
+                                            $montantCoutHT = 0;
+
+                                            foreach($costs as $cost){
+                                                $montantCoutLigne = $cost->getValue();
+                                                $montantCout = $montantCout+$montantCoutLigne;
+                                            ?>
+                                            <tr>
+                                                <?php
+                                               if($type == "devis") {
+                                                    ?>
+                                                    <td><input class="selection" type="checkbox" name="selection[]" value="<?php echo $cost->getIdCost(); ?>"/></td>
+                                                    <?php
+                                                }
+                                                $supplier = $suppliermanager->getByID($cost->getSupplierId());
+                                                ?>
+                                                <td class="col-md-4"><?php echo $supplier->getName(); ?></td>
+                                                <td class="col-md-6"><?php echo nl2br($cost->getDescription()); ?></td>
+                                                <td class="col-md-2"><?php echo number_format($cost->getValue(),0,","," "); ?> XPF</td>
+                                            </tr>
+                                            <?php
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+            }
+        ?>    
         <div class="row">
             <div class="col-md-6"> </div>
             <div class="col-md-6">
@@ -303,6 +474,14 @@ if(isset($_GET['cat5'])){
                     </div>
                     <?php }} ?>
                     <div class="row static-info align-reverse">
+                        <div class="col-md-8 name" style="font-weight: 800; font-size: 13px; font-style: italic;"> Total Options : </div>
+                        <div class="col-md-3 value" style="font-weight: 800; font-size: 13px; font-style: italic;"> <?php echo number_format($montantOption,0,","," "); ?> XPF</div>
+                    </div>
+                    <div class="row static-info align-reverse">
+                        <div class="col-md-8 name" style="font-weight: 800; font-size: 13px; font-style: italic;"> Total Coûts : </div>
+                        <div class="col-md-3 value" style="font-weight: 800; font-size: 13px; font-style: italic;"> <?php echo number_format($montantCout,0,","," "); ?> XPF</div>
+                    </div>
+                    <div class="row static-info align-reverse">
                         <div class="col-md-8 name" style="font-weight: 800; font-size: 16px;"> Total TTC : </div>
                         <div class="col-md-3 value" style="font-weight: 800; font-size: 16px;"> <?php echo number_format($montant,0,","," "); ?> XPF</div>
                     </div>
@@ -319,7 +498,8 @@ if(isset($_GET['cat5'])){
                         </div>
                     </form>
             <?php
-                }?>
+                }
+            ?>
         </div>
         <div id="to_proforma" data-keyboard="false" data-backdrop="static" class="modal fade" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
@@ -355,8 +535,8 @@ if(isset($_GET['cat5'])){
                                         <?php if($quotation->getType() == "S")
                                             {
                                             ?>
-                                                <label class="radio-inline"><input name="shattered" id="shattered1" type="radio" value="full" class="form-control" /><?php echo $shatteredQuotation->getPercent(); ?>
-                                                    ?></label>
+                                                <label class="radio-inline"><input name="shattered" id="shattered1" type="radio" value="full" class="form-control" /><?php echo $shatteredQuotation->getPercent(); ?> % 
+                                                </label>
                                             <?php
                                             }
                                             else{
@@ -368,7 +548,15 @@ if(isset($_GET['cat5'])){
 
                                         <label class="radio-inline"><input name="shattered" id="shattered2" type="radio" value="partial" class="form-control" />Partiel</label>
                                     </div>
-                                    <div id="credential_error"> </div>
+                                    <div id="credential_error">
+                                        <?php if($quotation->getType() == "S")
+                                                {
+                                                    ?>
+                                                    <span class="help-block">restant de la facture initiale</span>
+                                              <?php
+                                                }
+                                        ?> 
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group" id="partial" style="display: none">
