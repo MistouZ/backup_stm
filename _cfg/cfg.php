@@ -33,8 +33,13 @@ include 'classes/class_logsmanager.php';
 include 'classes/class_counter.php';
 include 'classes/class_countermanager.php';
 
+global $bdd;
+$bdd = new DB();
+$bdd->connexion();
+
 date_default_timezone_set('Pacific/Noumea');
 setlocale (LC_TIME, 'fr_FR.utf8','fra');
+
 
 
 ?>
