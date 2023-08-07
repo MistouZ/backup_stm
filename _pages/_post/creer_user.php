@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 /**
  * Created by PhpStorm.
  * User: adewynter
@@ -8,7 +8,9 @@
 
 include("../../_cfg/cfg.php");
 
-if(isset($_POST['valider'])) {
+$row = $_POST["row"];
+$maxrow = $_POST["maxrow"];
+
     $username = $_POST['username'];
     $password = $_POST['password'];
     $name = $_POST['name'];
@@ -38,14 +40,21 @@ if(isset($_POST['valider'])) {
     );
 
     $user = new Users($array);
+
+    print_r($user);
+
     $usermanager = new UsersManager($bdd);
     $test = $usermanager->add($user, $_POST["societe"]);
-    
 
+echo $test;
+
+if(!is_null($test)){
+    if($row < $maxrow) {
+        $row++;
+        //on ajoute 1 à la limite pour lire la prochaine ligne
+        header('Location: http://test.bitwin.nc/backup_users.php?row='.$row);
+    }
+    else{
+        header('Location: http://test.bitwin.nc/index.php');
+    }
 }
-if(is_null($test)){
-    header('Location: '.URLHOST.$_COOKIE['company']."user/afficher/error");
-}else{
-    header('Location: '.URLHOST.$_COOKIE['company']."user/afficher/success");
-}
-?>
