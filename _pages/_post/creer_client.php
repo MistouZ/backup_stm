@@ -40,7 +40,18 @@ if(!is_null($test))
 else{
     $customer2 = $customermanager->getByName($customer->getName());
     $customer2 = $customermanager->getByID($customer2->getIdCustomer());
-
     $test2 = $customermanager->duplicate($customer2, $_POST["case"][0]);
+    if(!is_null($test2))
+    {
+        if($row < $maxrow) {
+        $row++;
+        //on ajoute 1 à la limite pour lire la prochaine ligne
+        header('Location: http://test.bitwin.nc/backup_customers.php?row='.$row);
+        }
+        else{
+            header('Location: http://test.bitwin.nc/index.php');
+        }
+    }
+
 }
 ?>
