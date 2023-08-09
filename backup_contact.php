@@ -69,7 +69,7 @@ else{
         $nom = $contact_nom["1"]." ".$contact_nom["2"];
     }
 
-        $new2old = array(
+       /* $new2old = array(
             'á' => 'Ã¡',
 
             'À' => 'Ã€',
@@ -190,7 +190,7 @@ else{
         $old[] = $value;
     }
 
-    $donnees["client"] = str_replace( $old, $new, $donnees["client"] );
+    $donnees["client"] = str_replace( $old, $new, $donnees["client"] );*/
 
     print_r($donnees);
     }
