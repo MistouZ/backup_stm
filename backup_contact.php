@@ -37,7 +37,7 @@ else{
     $donnees = $reponse->fetch();
     if($donnees == null){
         $i++;
-        header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
+        //header('Location: http://test.bitwin.nc/backup_contact.php?row=' .$i);
     }
     else{
 
@@ -191,6 +191,8 @@ else{
     }
 
     $donnees["client"] = str_replace( $old, $new, $donnees["client"] );
+
+    print_r($donnees);
     }
     ?>
     <div class="row">
