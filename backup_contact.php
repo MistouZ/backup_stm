@@ -46,7 +46,7 @@ else{
     $mr   = 'Mr';
     $mme = 'Mme';
     $mlle = 'Mlle';
-    if(strpos($donnees["nom_contact"], $mr) != false || strpos($donnees["nom_contact"], $mr2) != false)
+    if(strpos($donnees["nom_contact"], $mr) !== false || strpos($donnees["nom_contact"], $mr2) !== false)
     {
         $donnees["nom_contact"] = substr($donnees["nom_contact"], 3);
         $contact_nom = explode(' ',$donnees["nom_contact"]);
@@ -55,7 +55,7 @@ else{
 
 
     }
-    elseif(strpos($donnees["nom_contact"], $mme)!= false || strpos($donnees["nom_contact"], $mlle)!= false)
+    elseif(strpos($donnees["nom_contact"], $mme)!== false || strpos($donnees["nom_contact"], $mlle)!== false)
     {
         $donnees["nom_contact"] = substr($donnees["nom_contact"], 4);
         $contact_nom = explode(' ',$donnees["nom_contact"]);
