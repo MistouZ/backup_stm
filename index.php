@@ -19,6 +19,8 @@
 <br>
 <a href="backup_customers.php">Page pour tester la récupération des clients</a>
 <br>
+<a href="backup_customers_diff.php">Page pour tester la récupération des derniers clients ajoutés</a>
+<br>
 <a href="backup_contact.php">Page pour tester la récupération des contacts</a>
 <br>
 <a href="backup_folder.php">Page pour tester la récupération des dossiers</a>
