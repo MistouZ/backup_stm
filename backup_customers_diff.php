@@ -17,7 +17,7 @@ else
 //récupération des données de l'utilisateur
 $bd = new PDO('mysql:host=localhost;port=3306; dbname=stm_test_db;charset=utf8', 'testuser', 'U!nx837j');
 
-$reponse = $bd->query('SELECT * FROM client WHERE id = '.$i.',1 ');
+$reponse = $bd->query('SELECT * FROM client WHERE id = '.$i.' ');
 $donnees = $reponse->fetch();
 
 $array = array();
