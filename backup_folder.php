@@ -42,6 +42,7 @@ echo $donnees["commercial"];
 if(!empty($donnees["commercial"]))
 {
     $seller = explode(' ',$donnees["commercial"]);
+    echo $seller[0];
     $user = $usermanager->findByName($seller[0], $seller[1]);
 }
 else{
