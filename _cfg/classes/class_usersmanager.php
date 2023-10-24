@@ -367,7 +367,7 @@ class UsersManager
     public function findByName($name, $firstname)
     {
         try{
-            $q = $this->_db->prepare('SELECT * FROM users WHERE name = ".$name." AND firstname =".$firstname." ');
+            $q = $this->_db->prepare('SELECT * FROM users WHERE name = '.$name.' AND firstname ='.$firstname.' ');
 
             $q->execute();
             return "ok";
