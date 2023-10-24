@@ -367,7 +367,7 @@ class UsersManager
     public function findByName($name, $firstname)
     {
         try{
-            $q = $this->_db->prepare('UPDATE users SET isActive = \'1\' WHERE name = "'.$name.'" AND firstname ="'.$firstname.'"');
+            $q = $this->_db->prepare('UPDATE users SET isActive = \'1\' WHERE name LIKE "'.$name.'" AND firstname ="'.$firstname.'"');
 
             $q->execute();
             return "ok";
