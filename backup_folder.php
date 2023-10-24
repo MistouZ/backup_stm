@@ -64,7 +64,7 @@ else{
     }
     elseif ($donnees["societe"] == "bitwin")
     {
-        $user->setUsername("jgarrone");
+        $user->setUsername("bmege");
     }
 
 }
